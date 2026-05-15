@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+
+  <title>Smart Notes Management System</title>
+
+  <!-- INTER FONT -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* CONTAINER - FIXED SIZE POPUP */
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      width: 917px;
+      height: 618px;
+      padding: 16px 20px 20px 20px;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header h1 i {
+      color: #2563eb;
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #6b7280;
+      border: none;
+    }
+
+    .close-btn:hover {
+      background: #e9f1ff;
+      color: #2563eb;
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      position: relative;
+      width: 380px;
+      max-width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 44px;
+      border-radius: 12px;
+      border: 1.5px solid #d1d5db;
+      padding: 0 45px 0 16px;
+      outline: none;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      transition: 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: #2563eb;
+      background: #fff;
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .total {
+      font-size: 14px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .add-btn {
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .add-btn:hover {
+      background: #1d4ed8;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* CARDS GRID */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding-right: 4px;
+      padding-bottom: 4px;
+    }
+
+    .cards::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .cards::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .cards::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .cards::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px 16px 12px 16px;
+      min-height: 170px;
+      max-height: 170px;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(30, 50, 100, 0.06);
+      transition: max-height 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(30, 50, 100, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .card.expanded {
+      max-height: 500px;
+      z-index: 10;
+      box-shadow: 0 8px 32px rgba(30, 50, 100, 0.14);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .status {
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .active {
+      background: #e6fbf4;
+      color: #2dbd8f;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .edit-btn {
+      color: #2563eb;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    .edit-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .delete-btn {
+      color: #ef4444;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .delete-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Card content with text truncation */
+    .card-content {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+      position: relative;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #111827;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Gradient fade for collapsed cards */
+    .card-content::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .card.expanded .card-content::after {
+      opacity: 0;
+    }
+
+    .card.expanded .card-content p {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow-y: auto;
+      color: #111827;
+    }
+
+    /* Scroll styling for expanded cards */
+    .card.expanded .card-content {
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .card.expanded .card-content::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .card.expanded .card-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .card.expanded .card-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .card.expanded .card-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-shrink: 0;
+      padding-top: 6px;
+      margin-top: auto;
+      height: auto;
+      min-height: 4px;
+    }
+
+    /* MODAL - Analytica HCS style */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 50, 0.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      width: 600px;
+      max-width: 100%;
+      max-height: 90vh;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      animation: slideUp 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: none; opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-header h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-header h2 i {
+      color: #2563eb;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #6b7280;
+      cursor: pointer;
+      transition: 0.2s;
+      border: none;
+    }
+
+    .modal-close:hover {
+      background: #e9f1ff;
+      color: #2563eb;
+    }
+
+    .modal-body {
+      padding: 18px 20px;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    .modal-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    .form-group input {
+      width: 100%;
+      height: 44px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 12px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      background: #f3f4f6;
+      color: #111827;
+      transition: 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: #2563eb;
+      background: #fff;
+    }
+
+    .form-group input:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .content-wrapper {
+      border: 1.5px solid #d1d5db;
+      border-radius: 12px;
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #f3f4f6;
+    }
+
+    .editor-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .editor-wrapper.hidden {
+      display: none;
+    }
+
+    .preview-area {
+      display: none;
+      padding: 14px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111827;
+      font-weight: 400;
+      background: #fff;
+    }
+
+    .preview-area.visible {
+      display: block;
+      flex: 1;
+    }
+
+    .preview-area::-webkit-scrollbar {
+      width: 5px;
+    }
+    .preview-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .preview-area::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .preview-area:empty:before {
+      content: "No content to preview";
+      color: #9ca3af;
+    }
+
+    .toolbar-editor {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 8px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #fafafa;
+      flex-shrink: 0;
+    }
+
+    .toolbar-editor button,
+    .toolbar-editor select {
+      height: 30px;
+      min-width: 30px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      padding: 0 6px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      transition: 0.2s;
+    }
+
+    .toolbar-editor button:hover {
+      background: #f3f4f6;
+    }
+
+    .toolbar-editor button.active-tool {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+
+    .toolbar-editor button.active-tool i {
+      color: #fff;
+    }
+
+    .divider {
+      width: 1px;
+      background: #ddd;
+      margin: 0 3px;
+    }
+
+    .editor {
+      flex: 1;
+      padding: 14px;
+      outline: none;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #111827;
+      font-weight: 400;
+      overflow-y: auto;
+      min-height: 120px;
+      background: #fff;
+    }
+
+    .editor:empty:before {
+      content: "Start typing...";
+      color: #9ca3af;
+    }
+
+    .editor::-webkit-scrollbar {
+      width: 5px;
+    }
+    .editor::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .editor::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .cancel-btn {
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1.5px solid #d1d5db;
+    }
+
+    .cancel-btn:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+      background: #e9f1ff;
+    }
+
+    .save-btn {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .save-btn:hover {
+      background: #1d4ed8;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .edit-toggle-btn {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1.5px solid #d1d5db;
+    }
+
+    .edit-toggle-btn:hover {
+      background: #e5e7eb;
+      border-color: #9ca3af;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      padding: 2px 0;
+    }
+
+    .toolbar-row + .toolbar-row {
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1><i class="fa-solid"></i> Smart Notes</h1>
+      <div class="close-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search Smart Note" />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <div class="toolbar-right">
+        <div class="total">Total: <span id="totalCount">6</span></div>
+        <button class="add-btn" id="openModalBtn"><i class="fa-solid fa-plus"></i> Add New Smart Note</button>
+      </div>
+    </div>
+
+    <!-- CARDS with click to expand -->
+    <div class="cards" id="cardsContainer">
+      <!-- CARD 1 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Normal Physical Exam</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>General: Alert, cooperative, well-developed, well-nourished, in no acute distress. Vital signs within normal limits. Head normocephalic, atraumatic. Eyes: conjunctivae clear, sclerae anicteric. ENT: oropharynx clear, mucous membranes moist. Neck supple, no lymphadenopathy, thyroid non-palpable. Cardiovascular: regular rate and rhythm, normal S1/S2, no murmurs/rubs/gallops. Lungs clear to auscultation bilaterally, no wheezes/rhonchi/crackles. Abdomen soft, non-tender, non-distended, normal bowel sounds, no organomegaly. Extremities: no cyanosis, clubbing, or edema. Neurological: alert, cranial nerves II–XII grossly intact, normal gait. Skin: warm, dry, no rashes or lesions.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Lipid Panel Interpretation</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Lipid panel reviewed with patient today. Total cholesterol less than 200 mg/dL, LDL less than 100 mg/dL, HDL greater than 60 mg/dL, and triglycerides less than 150 mg/dL — all within optimal cardiovascular risk parameters. No current indication for lipid-lowering pharmacotherapy. Discussed importance of maintaining heart-healthy diet low in saturated and trans fats, regular aerobic exercise (150 minutes moderate-intensity per week), and avoidance of tobacco. Advised repeat screening per current guidelines (every 4–6 years for low-risk adults). Patient verbalized understanding and agrees with plan. Will continue to monitor at annual wellness visits.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Routine Visit</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Comprehensive preventive health evaluation performed. Age-appropriate cancer screenings reviewed and ordered as indicated: colonoscopy (or stool-based test), mammogram, Pap/HPV co-testing, low-dose CT chest for lung cancer screening where applicable. Immunizations updated per ACIP schedule including influenza, Tdap/Td, shingles (recombinant zoster), pneumococcal, and COVID-19 booster when due. Reviewed one-time hepatitis C and routine HIV screening per USPSTF. Assessed for depression (PHQ-9), alcohol misuse, tobacco use, and fall risk. Counseled on diet, exercise, seatbelt use, and home safety. All age-appropriate quality measures addressed for value-based care metrics; follow-up in one year or sooner as needed.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">URI Follow-Up</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Patient returns for follow-up of upper respiratory infection. Symptoms have fully resolved without complication. Denies residual cough, sinus pressure, ear pain, or fever. No antibiotics were required. Discussed supportive care measures used including rest, hydration, saline nasal rinses, and over-the-counter symptom relief. Reassured patient that viral URIs are typically self-limited. Encouraged continued hand hygiene and avoidance of sick contacts during respiratory season. No further testing or treatment indicated at this time. Return to clinic PRN.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Diabetes Stable Visit</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Type 2 diabetes follow-up today. Patient reports medication adherence without significant side effects. Home glucose logs reviewed, showing fasting values predominantly 80–130 mg/dL and postprandial under 180 mg/dL. Point-of-care HbA1c obtained, result within patient's individualized target range. Foot exam unremarkable: monofilament sensation intact, pulses palpable, no ulcers or deformities. Annual eye exam and urine microalbumin up to date. Encouraged continued carbohydrate-consistent diet, regular activity, and daily foot inspection. Refilled current regimen; no dose adjustments required today. Return in 3–4 months with repeat labs.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Anxiety – Intake</div>
+            <div class="status active">Active</div>
+          </div>
+          <div class="card-actions">
+            <i class="fa-solid fa-pencil edit-btn"></i>
+            <i class="fa-regular fa-trash-can delete-btn"></i>
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Initial evaluation for anxiety. Patient describes several months of excessive worry, restlessness, fatigue, difficulty concentrating, irritability, muscle tension, and sleep disturbance. GAD-7 score 15, consistent with moderate-severity generalized anxiety. No associated panic attacks, specific phobias, or compulsive behaviors elicited. PHQ-9 also elevated at 12, indicating comorbid depressive features. No suicidal ideation, intent, or plan. Labs ordered to rule out medical contributors including TSH, CBC, and metabolic panel. Initiated low-dose SSRI with detailed discussion of expected onset, side effects, and warning signs. Close follow-up scheduled in 2 weeks to assess tolerance and initial response. Provided crisis resources and safety planning.</p>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL - Analytica HCS style -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle"><i class="fa-solid fa-note-sticky"></i> Add Smart Note</h2>
+        <button class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Smart Note Name <span class="required">*</span></label>
+          <input type="text" id="macroTitle" placeholder="Enter smart note name" disabled />
+        </div>
+        <div class="form-group" style="flex: 1; display: flex; flex-direction: column; margin-bottom: 0;">
+          <label>Smart Note Content <span class="required">*</span></label>
+          <div class="content-wrapper">
+            <div class="editor-wrapper" id="editorWrapper">
+              <div class="toolbar-editor">
+                <div class="toolbar-row">
+                  <button onclick="format('bold')" id="btn-bold"><i class="fa-solid fa-bold"></i></button>
+                  <button onclick="format('italic')" id="btn-italic"><i class="fa-solid fa-italic"></i></button>
+                  <button onclick="format('underline')" id="btn-underline"><i class="fa-solid fa-underline"></i></button>
+                  <button onclick="format('strikeThrough')" id="btn-strike"><i class="fa-solid fa-strikethrough"></i></button>
+                  <div class="divider"></div>
+                  <select onchange="changeFont(this.value)"><option value="">Font</option><option value="Arial">Arial</option><option value="Inter">Inter</option><option value="Verdana">Verdana</option></select>
+                  <select onchange="changeFontSize(this.value)"><option value="">Size</option><option value="1">10</option><option value="2">12</option><option value="3">14</option><option value="4">18</option></select>
+                  <select onchange="changeHeading(this.value)"><option value="">Normal</option><option value="H1">Heading 1</option><option value="H2">Heading 2</option><option value="P">Paragraph</option></select>
+                </div>
+                <div class="toolbar-row">
+                  <button onclick="format('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+                  <button onclick="format('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
+                  <button onclick="format('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
+                  <div class="divider"></div>
+                  <button onclick="format('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                  <button onclick="format('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                  <div class="divider"></div>
+                  <button onclick="addLink()"><i class="fa-solid fa-link"></i></button>
+                  <button onclick="format('unlink')"><i class="fa-solid fa-link-slash"></i></button>
+                  <div class="divider"></div>
+                  <button onclick="format('undo')"><i class="fa-solid fa-rotate-left"></i></button>
+                  <button onclick="format('redo')"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+              </div>
+              <div class="editor" id="editor" contenteditable="true"></div>
+            </div>
+            <div class="preview-area" id="previewArea"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn edit-toggle-btn" id="editToggleBtn"><i class="fa-solid fa-eye"></i> Preview</button>
+        <button class="btn cancel-btn" id="cancelBtn">Cancel</button>
+        <button class="btn save-btn" id="saveMacroBtn"><i class="fa-solid fa-check"></i> Save Smart Note</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const modal = document.getElementById("modalOverlay");
+      const openModalBtn = document.getElementById("openModalBtn");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const saveMacroBtn = document.getElementById("saveMacroBtn");
+      const editToggleBtn = document.getElementById("editToggleBtn");
+      const editorWrapper = document.getElementById("editorWrapper");
+      const previewArea = document.getElementById("previewArea");
+      const editor = document.getElementById("editor");
+      const macroTitleInput = document.getElementById("macroTitle");
+
+      let editingCard = null;
+
+      // Card expansion functionality
+      function setupCardExpansion() {
+        document.querySelectorAll('.card').forEach(card => {
+          card.removeEventListener('click', handleCardClick);
+          card.addEventListener('click', handleCardClick);
+        });
+      }
+
+      function handleCardClick(e) {
+        if (e.target.closest('.edit-btn') || e.target.closest('.delete-btn')) {
+          return;
+        }
+        
+        document.querySelectorAll('.card.expanded').forEach(expandedCard => {
+          if (expandedCard !== this) {
+            expandedCard.classList.remove('expanded');
+          }
+        });
+        
+        this.classList.toggle('expanded');
+      }
+
+      function updatePreview() {
+        if (previewArea) previewArea.innerHTML = editor.innerHTML;
+      }
+
+      function toggleEditMode(forceEdit) {
+        const isEditMode = typeof forceEdit !== 'undefined' ? forceEdit : editorWrapper.classList.contains('hidden');
+        if (isEditMode) {
+          editorWrapper.classList.remove('hidden');
+          previewArea.classList.remove('visible');
+          if (editToggleBtn) editToggleBtn.innerHTML = '<i class="fa-solid fa-eye"></i> Preview';
+          macroTitleInput.disabled = false;
+          editor.focus();
+        } else {
+          editorWrapper.classList.add('hidden');
+          previewArea.classList.add('visible');
+          updatePreview();
+          if (editToggleBtn) editToggleBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
+          macroTitleInput.disabled = true;
+        }
+      }
+
+      openModalBtn.onclick = () => {
+        modal.style.display = "flex";
+        modal.classList.add("open");
+        document.getElementById("modalTitle").innerHTML = '<i class="fa-solid fa-note-sticky"></i> Add Smart Note';
+        toggleEditMode(true);
+        macroTitleInput.value = "";
+        editor.innerHTML = "";
+        previewArea.innerHTML = "";
+        editingCard = null;
+      };
+
+      function closeModal() {
+        modal.style.display = "none";
+        modal.classList.remove("open");
+        editingCard = null;
+        macroTitleInput.value = "";
+        editor.innerHTML = "";
+        previewArea.innerHTML = "";
+        document.getElementById("modalTitle").innerHTML = '<i class="fa-solid fa-note-sticky"></i> Add Smart Note';
+        toggleEditMode(true);
+      }
+
+      closeModalBtn.onclick = closeModal;
+      cancelBtn.onclick = closeModal;
+
+      window.onclick = (e) => {
+        if (e.target === modal) closeModal();
+      };
+
+      editToggleBtn.onclick = () => {
+        const isEditMode = editorWrapper.classList.contains('hidden');
+        toggleEditMode(isEditMode);
+      };
+
+      editor.addEventListener('input', updatePreview);
+
+      window.format = function(command, value = null) {
+        document.execCommand(command, false, value);
+        updateActiveTools();
+        editor.focus();
+        updatePreview();
+      };
+
+      window.changeFont = function(font) {
+        if (font) { document.execCommand("fontName", false, font); updatePreview(); }
+      };
+      window.changeFontSize = function(size) {
+        if (size) { document.execCommand("fontSize", false, size); updatePreview(); }
+      };
+      window.changeHeading = function(tag) {
+        if (tag) { document.execCommand("formatBlock", false, tag); updatePreview(); }
+      };
+      window.addLink = function() {
+        const url = prompt("Enter URL");
+        if (url) { document.execCommand("createLink", false, url); updatePreview(); }
+      };
+
+      function updateActiveTools() {
+        const boldBtn = document.getElementById('btn-bold');
+        const italicBtn = document.getElementById('btn-italic');
+        const underlineBtn = document.getElementById('btn-underline');
+        const strikeBtn = document.getElementById('btn-strike');
+        if (boldBtn) boldBtn.classList.toggle('active-tool', document.queryCommandState('bold'));
+        if (italicBtn) italicBtn.classList.toggle('active-tool', document.queryCommandState('italic'));
+        if (underlineBtn) underlineBtn.classList.toggle('active-tool', document.queryCommandState('underline'));
+        if (strikeBtn) strikeBtn.classList.toggle('active-tool', document.queryCommandState('strikeThrough'));
+      }
+
+      editor.addEventListener('mouseup', updateActiveTools);
+      editor.addEventListener('keyup', updateActiveTools);
+
+      saveMacroBtn.onclick = () => {
+        const title = macroTitleInput.value.trim();
+        const content = editor.innerHTML.trim();
+        if (title === "" || content === "") {
+          alert("Please fill all fields");
+          return;
+        }
+        if (editingCard) {
+          const contentEl = editingCard.querySelector(".card-content p");
+          if (contentEl) contentEl.innerHTML = content;
+          const titleEl = editingCard.querySelector(".card-title");
+          if (titleEl) titleEl.innerText = title;
+          closeModal();
+          return;
+        }
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-title">${title}</div>
+              <div class="status active">Active</div>
+            </div>
+            <div class="card-actions">
+              <i class="fa-solid fa-pencil edit-btn"></i>
+              <i class="fa-regular fa-trash-can delete-btn"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <p>${content}</p>
+          </div>
+          <div class="card-footer"></div>
+        `;
+        document.getElementById("cardsContainer").appendChild(card);
+        closeModal();
+        initializeCardEvents();
+        updateTotal();
+      };
+
+      function setupDelete() {
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+          btn.onclick = () => {
+            const card = btn.closest(".card");
+            if (card && confirm("Delete this smart note?")) {
+              card.remove();
+              updateTotal();
+            }
+          };
+        });
+      }
+
+      function setupEdit() {
+        document.querySelectorAll(".edit-btn").forEach(btn => {
+          btn.onclick = () => {
+            const card = btn.closest(".card");
+            if (!card) return;
+            editingCard = card;
+            const title = card.querySelector(".card-title")?.innerText || "";
+            const contentEl = card.querySelector(".card-content p");
+            const content = contentEl ? contentEl.innerHTML : "";
+            modal.style.display = "flex";
+            modal.classList.add("open");
+            document.getElementById("modalTitle").innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Smart Note';
+            macroTitleInput.value = title;
+            editor.innerHTML = content;
+            toggleEditMode(false);
+          };
+        });
+      }
+
+      function updateTotal() {
+        const count = document.querySelectorAll(".card").length;
+        document.getElementById("totalCount").innerText = count;
+      }
+
+      function initializeCardEvents() {
+        setupDelete();
+        setupEdit();
+        setupCardExpansion();
+      }
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keyup", () => {
+        const value = searchInput.value.toLowerCase();
+        document.querySelectorAll(".card").forEach(card => {
+          const text = card.innerText.toLowerCase();
+          card.style.display = text.includes(value) ? "flex" : "none";
+        });
+      });
+
+      initializeCardEvents();
+      updateTotal();
+    })();
+  </script>
+</body>
+</html>
