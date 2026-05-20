@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch Dictation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- Simulated Dashboard Background -->
+  <div class="dashboard-bg">
+    <div class="dash-header">
+      <button class="new-dictation-btn" id="openModalBtn">+ New Dictation</button>
+    </div>
+  </div>
+
+  <!-- ── Scribe Selection Modal ─────────────────────────────── -->
+  <div class="modal-overlay" id="scribeSelectOverlay">
+    <div class="scribe-select-modal">
+      <div class="scribe-select-header">
+        <div class="header-left">
+          <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="25.036" height="27" rx="5" fill="#EFF5FE"/>
+            <path d="M12.9816 16C12.2089 16 11.5521 15.7083 11.0112 15.125C10.4703 14.5417 10.1998 13.8333 10.1998 13V7C10.1998 6.16667 10.4703 5.45833 11.0112 4.875C11.5521 4.29167 12.2089 4 12.9816 4C13.7543 4 14.4111 4.29167 14.952 4.875C15.4929 5.45833 15.7634 6.16667 15.7634 7V13C15.7634 13.8333 15.4929 14.5417 14.952 15.125C14.4111 15.7083 13.7543 16 12.9816 16ZM12.0543 23V19.925C10.4471 19.6917 9.11802 18.9167 8.06712 17.6C7.01623 16.2833 6.49078 14.75 6.49078 13H8.3453C8.3453 14.3833 8.79734 15.5625 9.70142 16.5375C10.6055 17.5125 11.6989 18 12.9816 18C14.2643 18 15.3577 17.5125 16.2618 16.5375C17.1659 15.5625 17.6179 14.3833 17.6179 13H19.4724C19.4724 14.75 18.947 16.2833 17.8961 17.6C16.8452 18.9167 15.5161 19.6917 13.9089 19.925V23H12.0543Z" fill="#969EAA"/>
+          </svg>
+          <div>
+            <h2>New Dictation</h2>
+            <div class="header-sub">Choose how you'd like to record</div>
+          </div>
+        </div>
+        <button class="close-btn" id="closeScribeSelect" aria-label="Close">✕</button>
+      </div>
+
+      <div class="scribe-options">
+        <button class="scribe-option-card" id="selfScribeBtn">
+          <div class="scribe-option-icon self-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+          </div>
+          <div class="scribe-option-body">
+            <div class="scribe-option-title">Self Scribe</div>
+            <div class="scribe-option-desc">Record audio yourself. Fill in visit type, template and patient name before starting.</div>
+          </div>
+          <div class="scribe-option-arrow">→</div>
+        </button>
+
+        <button class="scribe-option-card" id="withScribeBtn">
+          <div class="scribe-option-icon with-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              <path d="M21 21v-2a4 4 0 0 0-3-3.87"/>
+            </svg>
+          </div>
+          <div class="scribe-option-body">
+            <div class="scribe-option-title">With Scribe</div>
+            <div class="scribe-option-desc">Record live or upload an external audio file. Select visit type and template to proceed.</div>
+          </div>
+          <div class="scribe-option-arrow">→</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Dictation Modal ───────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <section class="dictation-modal" id="dictationModal">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="header-left">
+          <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="25.036" height="27" rx="5" fill="#EFF5FE"/>
+            <path d="M12.9816 16C12.2089 16 11.5521 15.7083 11.0112 15.125C10.4703 14.5417 10.1998 13.8333 10.1998 13V7C10.1998 6.16667 10.4703 5.45833 11.0112 4.875C11.5521 4.29167 12.2089 4 12.9816 4C13.7543 4 14.4111 4.29167 14.952 4.875C15.4929 5.45833 15.7634 6.16667 15.7634 7V13C15.7634 13.8333 15.4929 14.5417 14.952 15.125C14.4111 15.7083 13.7543 16 12.9816 16ZM12.0543 23V19.925C10.4471 19.6917 9.11802 18.9167 8.06712 17.6C7.01623 16.2833 6.49078 14.75 6.49078 13H8.3453C8.3453 14.3833 8.79734 15.5625 9.70142 16.5375C10.6055 17.5125 11.6989 18 12.9816 18C14.2643 18 15.3577 17.5125 16.2618 16.5375C17.1659 15.5625 17.6179 14.3833 17.6179 13H19.4724C19.4724 14.75 18.947 16.2833 17.8961 17.6C16.8452 18.9167 15.5161 19.6917 13.9089 19.925V23H12.0543Z" fill="#969EAA"/>
+          </svg>
+          <div>
+            <h2>Batch Dictation</h2>
+            <div class="header-sub" id="modeSubLabel">Self Scribe</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button class="mode-pill" id="modePill">Self Scribe</button>
+          <button class="close-btn" id="closeModal" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Encounter Info -->
+        <div class="section-block">
+          <div class="section-title">
+            <span class="section-dot"></span>Encounter Details
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <div class="field-wrap">
+                <input id="dictationDate" class="input-control" type="date" />
+                <span class="field-icon">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 1.25V3.75M5 1.25V3.75M1.875 6.25H13.125M3.125 2.5H11.875C12.5654 2.5 13.125 3.05964 13.125 3.75V12.5C13.125 13.1904 12.5654 13.75 11.875 13.75H3.125C2.43464 13.75 1.875 13.1904 1.875 12.5V3.75C1.875 3.05964 2.43464 2.5 3.125 2.5Z" stroke="#00031A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <div class="field-wrap">
+                <select id="clinicLocation" class="input-control">
+
+                  <optgroup label="Hospitals">
+                    <option value="General Hospital">General Hospital</option>
+                    <option value="City Medical Center">City Medical Center</option>
+                  </optgroup>
+                  <optgroup label="Clinics">
+                    <option value="North Clinic">North Clinic</option>
+                    <option value="South Clinic">South Clinic</option>
+                    <option value="East Clinic">East Clinic</option>
+                    <option value="West Clinic">West Clinic</option>
+                  </optgroup>
+                  <optgroup label="Departments">
+                    <option value="Cardiology Dept.">Cardiology Dept.</option>
+                    <option value="Neurology Dept.">Neurology Dept.</option>
+                    <option value="Radiology Dept.">Radiology Dept.</option>
+                  </optgroup>
+                </select>
+                <span class="field-icon">
+                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.01318 9.02625L12.0219 15.0175L18.0132 9.00873" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+
+        <!-- Recording Controls -->
+        <div class="section-block recorder-section">
+          <div class="section-title">
+            <span>Recording</span>
+          </div>
+
+          <button class="upload-ext-btn upload-option-btn" id="externalUploadBtn" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            External Upload
+          </button>
+
+          <div class="record-setup" id="recordSetup">
+            <div class="record-setup-header">
+              <div>
+                <div class="record-setup-title">Before recording</div>
+              </div>
+              <button class="record-setup-close" id="recordSetupClose" type="button" aria-label="Close setup">✕</button>
+            </div>
+            <div class="record-setup-grid" id="recordSetupGrid">
+              <div class="form-group">
+                <label class="form-label">Type of visit<span class="required-star">*</span></label>
+                <div class="field-wrap">
+                  <select id="visitType" class="input-control">
+                    <option value="">Select visit type…</option>
+                    <option value="Follow-up">Follow-up</option>
+                    <option value="New patient">New patient</option>
+                  </select>
+                  <span class="field-icon">
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none"><path d="M6.01318 9.02625L12.0219 15.0175L18.0132 9.00873" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Template<span class="required-star">*</span></label>
+                <div class="field-wrap">
+                  <select id="templateType" class="input-control">
+                    <option value="">Select template…</option>
+                    <option value="SOAP Note">SOAP Note</option>
+                    <option value="Progress Note">Progress Note</option>
+                    <option value="Assessment">Assessment</option>
+                    <option value="Procedure Note">Procedure Note</option>
+                    <option value="Follow-up Note">Follow-up Note</option>
+                  </select>
+                  <span class="field-icon">
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none"><path d="M6.01318 9.02625L12.0219 15.0175L18.0132 9.00873" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Patient Name — only visible in self-scribe mode -->
+              <div class="form-group patient-name-field" id="patientNameGroup" style="display:none">
+                <label class="form-label">Last Name <span class="required-star">*</span></label>
+                <div class="field-wrap">
+                  <input id="patientName" class="input-control" type="text" placeholder="Enter patient last name…" style="padding-right:12px" />
+                </div>
+
+                <label class="form-label" >First Name <span class="required-star">*</span></label>
+                <div class="field-wrap">
+                  <input id="patientFirstName" class="input-control" type="text" placeholder="Enter patient first name…" style="padding-right:12px" />
+                </div>
+              </div>
+            </div>
+            <div class="record-setup-actions">
+              <button class="footer-btn cancel-btn" id="recordSetupCancel" type="button">Cancel</button>
+              <button class="footer-btn start-btn" id="recordSetupStart" type="button">Start recording</button>
+            </div>
+          </div>
+
+          <div class="timer-wrap">
+            <div class="timer-ring" id="timerRing">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="52"/>
+              </svg>
+              <div class="timer-inner">
+                <div id="recordingTimer" class="timer-display">00:00</div>
+                <div class="timer-status" id="timerStatus">Ready</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="control-item">
+              <button id="restartRecording" class="circle-btn reset-btn" type="button" title="Restart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+              <small>Restart</small>
+            </div>
+            <div class="control-item">
+              <button id="recordButton" class="circle-btn record-btn" type="button" title="Record / Pause">
+                <svg id="recordIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
+              </button>
+              <small id="recordLabel">Start</small>
+            </div>
+            <div class="control-item">
+              <button id="stopButton" class="circle-btn stop-btn" type="button" title="Stop">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+              </button>
+              <small>Stop</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recordings List -->
+        <div class="section-block">
+          <div class="recordings-header">
+            <div class="section-title" style="margin-bottom:0">
+              <span class="section-dot"></span>Recordings
+            </div>
+            <span class="recording-badge" id="recordingCount">0 recordings</span>
+          </div>
+          <div id="recordingsList" class="recordings-list">
+            <div class="empty-state" id="emptyState">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#b0becc" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+              <p>No recordings yet. Start recording to capture a visit.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /modal-body -->
+
+      <div class="modal-footer">
+        <button class="footer-btn cancel-btn" id="cancelBtn">Cancel</button>
+        <div class="footer-right">
+          <span class="footer-hint" id="footerHint">Recordings upload automatically when you stop</span>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-icon" id="confirmIcon">⚠️</div>
+      <h3 id="confirmTitle">Confirm Action</h3>
+      <p id="confirmMessage">Are you sure?</p>
+      <div class="confirm-actions">
+        <button class="conf-btn conf-cancel" id="confirmCancel">Cancel</button>
+        <button class="conf-btn conf-ok" id="confirmOk">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
