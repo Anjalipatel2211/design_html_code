@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://127.0.0.1:5502/profile.html -->
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+  <title>Analytica HCS – Provider Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- <link href="./Analytica HCS – Provider Profile_files/css2" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="./Analytica HCS – Provider Profile_files/all.min.css">
+  <link rel="stylesheet" href="./Analytica HCS – Provider Profile_files/profile.css"> -->
+  <link rel="stylesheet" href="all.min.css" />
+  <link rel="stylesheet" href="profile.css" />
+
+</head>
+<body>
+
+<!-- =====================================================
+     PROVIDER PROFILE MODAL OVERLAY
+===================================================== -->
+<div class="profile-modal-overlay" id="profileModalOverlay">
+  <div class="provider-profile-modal">
+
+    <!-- STICKY MODAL HEADER -->
+    <div class="modal-sticky-header" id="modalStickyHeader">
+      <button class="modal-back-btn hidden" id="modalBackBtn">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+      <div class="modal-header-title">
+        <h2 id="modalTitle">Provider Profile</h2>
+        <p id="modalSubtitle">Enterprise healthcare provider management</p>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
+        <i class="fa fa-moon"></i>
+      </button>
+      <button class="close-modal-btn" id="closeProfileModal">
+        <i class="fa fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- ===================== SCREEN: HOME ===================== -->
+    <section class="profile-screen" id="screenHome">
+
+      <!-- PROVIDER IDENTITY CARD -->
+      <div class="profile-card" id="profileCard">
+        <div class="profile-top-section">
+
+          <div class="profile-avatar-wrapper">
+            <div class="profile-avatar-large" id="avatarDisplay">JA</div>
+            <button class="change-photo-btn" id="changePhotoBtn" title="Change Photo">
+              <i class="fa fa-camera"></i>
+            </button>
+          </div>
+
+          <div class="profile-main-info">
+            <h3 id="profileName">Dr. James Anderson</h3>
+            <span id="profileSpecialty">Cardiology Specialist</span>
+            <div class="profile-meta-grid">
+              <div>
+                
+                <label>Email</label>
+                <p id="profileEmail">james@analyticahcs.com</p>
+              </div>
+              <div>
+                <label>Phone</label>
+                <p id="profilePhone">+1 938 492 2345</p>
+              </div>
+              <div>
+                <label>Clinic</label>
+                <p id="profileClinic">North Clinic</p>
+              </div>
+              <div>
+                <label>Address</label>
+                <p id="profileAddress">New York, USA</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="primary-btn" id="editProfileBtn">
+              <i class="fa fa-pen"></i>
+              Edit Profile
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SETTINGS GRID -->
+      <div class="settings-grid" id="settingsGrid">
+
+        <div class="settings-card" data-setting="account">
+          <div class="settings-icon blue"><i class="fa fa-shield-halved"></i></div>
+          <div class="settings-content">
+            <h4>Account &amp; Security</h4>
+            <p>Password, 2FA, login sessions and devices</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="notifications">
+          <div class="settings-icon orange"><i class="fa fa-bell"></i></div>
+          <div class="settings-content">
+            <h4>Notifications &amp; Preferences</h4>
+            <p>Clinical alerts, messages and system updates</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="support">
+          <div class="settings-icon green"><i class="fa fa-headset"></i></div>
+          <div class="settings-content">
+            <h4>Help &amp; Support</h4>
+            <p>Support tickets and healthcare assistance</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="feedback">
+          <div class="settings-icon purple"><i class="fa fa-comment-dots"></i></div>
+          <div class="settings-content">
+            <h4>Feedback &amp; Suggestions</h4>
+            <p>Submit platform improvements and reports</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="invite">
+          <div class="settings-icon blue"><i class="fa fa-share-nodes"></i></div>
+          <div class="settings-content">
+            <h4>Invite &amp; Share</h4>
+            <p>Invite providers for ANA trial demo access</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="products">
+          <div class="settings-icon orange"><i class="fa fa-layer-group"></i></div>
+          <div class="settings-content">
+            <h4>Product Suite</h4>
+            <p>Manage ANA subscriptions and marketplace</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card" data-setting="appinfo">
+          <div class="settings-icon green"><i class="fa fa-circle-info"></i></div>
+          <div class="settings-content">
+            <h4>App Info &amp; Policies</h4>
+            <p>Privacy, HIPAA compliance and legal</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="settings-card logout-card" data-setting="logout">
+          <div class="settings-icon red"><i class="fa fa-right-from-bracket"></i></div>
+          <div class="settings-content">
+            <h4>Logout</h4>
+            <p>Securely logout from your account</p>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: EDIT PROFILE ===================== -->
+    <section class="profile-screen hidden" id="screenEditProfile">
+      <form class="edit-profile-form" id="editProfileForm" novalidate="">
+
+        <div class="form-section-card">
+          <div class="form-section-header">
+            <div class="form-section-icon blue"><i class="fa fa-user"></i></div>
+            <div>
+              <h4>Personal Information</h4>
+              <p>Update your name and display preferences</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" placeholder="First name">
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" placeholder="Last name">
+            </div>
+            <div class="form-group full-width">
+              <label>Display Name <span class="req">*</span></label>
+              <input type="text" id="displayName" placeholder="Dr. Full Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section-card">
+          <div class="form-section-header">
+            <div class="form-section-icon orange"><i class="fa fa-stethoscope"></i></div>
+            <div>
+              <h4>Professional Information</h4>
+              <p>Specialty and clinical role details</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Medical Specialty <span class="req">*</span></label>
+              <input type="text" id="specialty" placeholder="e.g. Cardiology Specialist">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section-card">
+          <div class="form-section-header">
+            <div class="form-section-icon green"><i class="fa fa-address-book"></i></div>
+            <div>
+              <h4>Contact Information</h4>
+              <p>Email and phone details</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="email" placeholder="email@example.com" readonly="" class="readonly-input">
+              <span class="field-note"><i class="fa fa-lock"></i> Managed by admin</span>
+            </div>
+            <div class="form-group">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phoneNumber" placeholder="+1 000 000 0000">
+            </div>
+            <div class="form-group full-width">
+              <label>Emergency Contact</label>
+              <input type="tel" id="emergencyContact" placeholder="Emergency contact number">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section-card">
+          <div class="form-section-header">
+            <div class="form-section-icon purple"><i class="fa fa-location-dot"></i></div>
+            <div>
+              <h4>Address Information</h4>
+              <p>Practice and clinic location</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Clinic Name</label>
+              <input type="text" id="clinicName" placeholder="Clinic / Hospital" readonly="" class="readonly-input">
+              <span class="field-note"><i class="fa fa-lock"></i> Managed by admin</span>
+            </div>
+            <div class="form-group">
+              <label>Street</label>
+              <input type="text" id="street" placeholder="Street address" readonly="" class="readonly-input">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="city" placeholder="City" readonly="" class="readonly-input">
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="state" placeholder="State" readonly="" class="readonly-input">
+            </div>
+            <div class="form-group">
+              <label>ZIP Code</label>
+              <input type="text" id="zip" placeholder="ZIP" readonly="" class="readonly-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="edit-actions">
+          <button type="button" class="secondary-btn" id="cancelEditProfile">Cancel</button>
+          <button type="submit" class="primary-btn" id="saveProfileBtn">
+            <span class="btn-text"><i class="fa fa-check"></i> Save Changes</span>
+            <span class="btn-loader hidden"><i class="fa fa-spinner fa-spin"></i> Saving…</span>
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ===================== SCREEN: ACCOUNT & SECURITY ===================== -->
+    <section class="profile-screen hidden" id="screenAccount">
+      <div class="settings-detail-content">
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-key"></i></div>
+            <div>
+              <h4>Login Credentials</h4>
+              <p>Your current login details</p>
+            </div>
+          </div>
+          <div class="credential-rows">
+            <div class="credential-row">
+              <span><i class="fa fa-envelope"></i> Email</span>
+              <strong>james@analyticahcs.com</strong>
+            </div>
+            <div class="credential-row">
+              <span><i class="fa fa-clock"></i> Last Login</span>
+              <strong>Today, 09:42 AM</strong>
+            </div>
+            <div class="credential-row">
+              <span><i class="fa fa-laptop"></i> Device</span>
+              <strong>MacBook Pro – Chrome</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon orange"><i class="fa fa-lock"></i></div>
+            <div>
+              <h4>Change Password</h4>
+              <p>Minimum 8 chars, uppercase &amp; special character required</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Current Password</label>
+              <div class="password-input-wrap">
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+                <button type="button" class="toggle-pwd" data-target="currentPassword"><i class="fa fa-eye"></i></button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <div class="password-input-wrap">
+                <input type="password" id="newPassword" placeholder="New password">
+                <button type="button" class="toggle-pwd" data-target="newPassword"><i class="fa fa-eye"></i></button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <div class="password-input-wrap">
+                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                <button type="button" class="toggle-pwd" data-target="confirmPassword"><i class="fa fa-eye"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="pwd-strength" id="pwdStrength"></div>
+          <div class="edit-actions" style="margin-top:18px;">
+            <button class="primary-btn" id="changePasswordBtn">
+              <i class="fa fa-lock"></i> Update Password
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon green"><i class="fa fa-mobile-screen"></i></div>
+            <div>
+              <h4>Two-Factor Authentication</h4>
+              <p>Add an extra layer of security to your account</p>
+            </div>
+          </div>
+          <div class="tfa-options">
+           
+            <p>use same Two-Factor Authentication method used in current application</p>
+            
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon purple"><i class="fa fa-tablet-screen-button"></i></div>
+            <div>
+              <h4>Session Management</h4>
+              <p>Active login devices and browser sessions</p>
+            </div>
+          </div>
+          <div class="device-list">
+            <div class="device-row active-device">
+              <div class="device-icon"><i class="fa fa-laptop"></i></div>
+              <div class="device-info">
+                <strong>MacBook Pro – Chrome</strong>
+                <span>New York, USA · Active now</span>
+              </div>
+              <span class="device-badge current">Current</span>
+            </div>
+            <div class="device-row">
+              <div class="device-icon"><i class="fa fa-mobile-screen"></i></div>
+              <div class="device-info">
+                <strong>iPhone 15 – Safari</strong>
+                <span>New York, USA · 2 hours ago</span>
+              </div>
+              <button class="revoke-btn">Revoke</button>
+            </div>
+            <div class="device-row">
+              <div class="device-icon"><i class="fa fa-desktop"></i></div>
+              <div class="device-info">
+                <strong>Windows PC – Edge</strong>
+                <span>New Jersey, USA · Yesterday</span>
+              </div>
+              <button class="revoke-btn">Revoke</button>
+            </div>
+          </div>
+          <div class="edit-actions" style="margin-top:18px;">
+            <button class="danger-outline-btn"><i class="fa fa-right-from-bracket"></i> Logout All Devices</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: NOTIFICATIONS ===================== -->
+    <section class="profile-screen hidden" id="screenNotifications">
+      <div class="settings-detail-content">
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-stethoscope"></i></div>
+            <div>
+              <h4>Clinical Notifications</h4>
+              <p>Clinical alerts, messages and system updates</p>
+            </div>
+          </div>
+          <div class="notif-list">
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Encounter Assigned</strong>
+                <span>Notify when a new encounter is assigned to you</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Recording Completed</strong>
+                <span>Notify when audio recording is processed</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <!-- <div class="notif-row">
+              <div class="notif-info">
+                <strong>QA Feedback</strong>
+                <span>Notify when QA team submits feedback</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div> -->
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>EHR Ready</strong>
+                <span>Notify when notes are ready for EHR upload</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Coding Ready</strong>
+                <span>Notify when medical coding is completed</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon orange"><i class="fa fa-comments"></i></div>
+            <div>
+              <h4>Communication Notifications</h4>
+              <p>Messages, mentions and support</p>
+            </div>
+          </div>
+          <div class="notif-list">
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Chat Messages</strong>
+                <span>Notify on new messages from your team</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Support Responses</strong>
+                <span>Notify when support team replies to your ticket</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Team Mentions</strong>
+                <span>Notify when someone @mentions you</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon green"><i class="fa fa-gear"></i></div>
+            <div>
+              <h4>System Notifications</h4>
+              <p>Platform updates and renewals</p>
+            </div>
+          </div>
+          <div class="notif-list">
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Platform Updates</strong>
+                <span>Notify on new feature releases and updates</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Downtime Alerts</strong>
+                <span>Notify on scheduled maintenance windows</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-info">
+                <strong>Subscription Renewal</strong>
+                <span>Notify before subscription expires</span>
+              </div>
+              <label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: SUPPORT ===================== -->
+    <section class="profile-screen hidden" id="screenSupport">
+      <div class="settings-detail-content">
+
+        <div class="support-hero">
+          <!-- <div class="support-hero-icon"><i class="fa fa-headset"></i></div>
+          <h3>How can we help you?</h3> -->
+          <p>Navigate to ticket & chat support page</p>
+        </div>
+
+        <!-- <div class="support-options-grid">
+          <div class="support-option-card" id="openTicketBtn">
+            <div class="support-opt-icon blue"><i class="fa fa-ticket"></i></div>
+            <strong>Open Support Ticket</strong>
+            <span>Submit a new issue or request</span>
+          </div>
+          <div class="support-option-card">
+            <div class="support-opt-icon orange"><i class="fa fa-book-open"></i></div>
+            <strong>Knowledge Base</strong>
+            <span>Browse help articles and guides</span>
+          </div>
+          <div class="support-option-card">
+            <div class="support-opt-icon green"><i class="fa fa-comments"></i></div>
+            <strong>Live Chat</strong>
+            <span>Chat with a support agent now</span>
+          </div>
+          <div class="support-option-card">
+            <div class="support-opt-icon purple"><i class="fa fa-video"></i></div>
+            <strong>Schedule a Call</strong>
+            <span>Book a video support session</span>
+          </div>
+        </div> -->
+
+        <!-- <div class="detail-card" id="ticketChatArea" style="display:none;">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-ticket"></i></div>
+            <div>
+              <h4>New Support Ticket</h4>
+              <p>Describe your issue and we'll get back to you</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Issue Category</label>
+              <select class="form-select" id="ticketCategory">
+                <option>Technical Issue</option>
+                <option>Billing Question</option>
+                <option>Feature Request</option>
+                <option>Account Problem</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Priority</label>
+              <select class="form-select" id="ticketPriority">
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+                <option>Critical</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Subject</label>
+              <input type="text" id="ticketSubject" placeholder="Brief description of the issue">
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea class="feedback-textarea" id="ticketDescription" placeholder="Provide detailed description…"></textarea>
+            </div>
+          </div>
+          <div class="edit-actions" style="margin-top:18px;">
+            <button class="secondary-btn" id="cancelTicketBtn">Cancel</button>
+            <button class="primary-btn" id="submitTicketBtn"><i class="fa fa-paper-plane"></i> Submit Ticket</button>
+          </div>
+        </div> -->
+
+        <!-- <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon orange"><i class="fa fa-clock-rotate-left"></i></div>
+            <div>
+              <h4>Recent Tickets</h4>
+              <p>Your open and resolved tickets</p>
+            </div>
+          </div>
+          <div class="ticket-list">
+            <div class="ticket-row">
+              <div class="ticket-status open"></div>
+              <div class="ticket-info">
+                <strong>#TK-0041 – EHR sync issue</strong>
+                <span>Opened 2 days ago · High Priority</span>
+              </div>
+              <span class="ticket-badge open">Open</span>
+            </div>
+            <div class="ticket-row">
+              <div class="ticket-status resolved"></div>
+              <div class="ticket-info">
+                <strong>#TK-0039 – Billing query</strong>
+                <span>Resolved May 10 · Medium Priority</span>
+              </div>
+              <span class="ticket-badge resolved">Resolved</span>
+            </div>
+            <div class="ticket-row">
+              <div class="ticket-status open"></div>
+              <div class="ticket-info">
+                <strong>#TK-0038 – Login issue on iPad</strong>
+                <span>Opened May 8 · Low Priority</span>
+              </div>
+              <span class="ticket-badge open">Open</span>
+            </div>
+          </div>
+        </div>
+
+      </div> -->
+    </section>
+
+    <!-- ===================== SCREEN: FEEDBACK ===================== -->
+    <section class="profile-screen hidden" id="screenFeedback">
+      <div class="settings-detail-content">
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon purple"><i class="fa fa-comment-dots"></i></div>
+            <div>
+              <h4>Submit Feedback</h4>
+              <p>Help us improve the Analytica HCS platform</p>
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top:20px;">
+            <div class="form-group">
+              <label>Feedback Type</label>
+              <select class="form-select" id="feedbackType">
+                <option>Bug Report</option>
+                <option>Feature Request</option>
+                <option>General Feedback</option>
+                <option>UI Suggestion</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Rating</label>
+              <div class="star-rating" id="starRating">
+                <i class="fa fa-star" data-val="1"></i>
+                <i class="fa fa-star" data-val="2"></i>
+                <i class="fa fa-star" data-val="3"></i>
+                <i class="fa fa-star" data-val="4"></i>
+                <i class="fa fa-star" data-val="5"></i>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea class="feedback-textarea" id="feedbackDescription" placeholder="Describe your feedback in detail…"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Attachments (optional)</label>
+              <div class="attachment-drop" id="attachmentDrop">
+                <i class="fa fa-cloud-arrow-up"></i>
+                <span>Drop screenshot, recording or logs here</span>
+                <span class="attach-sub">or <label class="attach-link" for="attachInput">browse files</label></span>
+                <input type="file" id="attachInput" hidden="" accept="image/*,video/*,.log,.txt" multiple="">
+              </div>
+              <div class="attachment-list" id="attachmentList"></div>
+            </div>
+          </div>
+
+          <div class="edit-actions" style="margin-top:18px;">
+            <button class="primary-btn" id="submitFeedbackBtn">
+              <span class="btn-text"><i class="fa fa-paper-plane"></i> Submit Feedback</span>
+              <span class="btn-loader hidden"><i class="fa fa-spinner fa-spin"></i> Submitting…</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: INVITE & SHARE ===================== -->
+    <section class="profile-screen hidden" id="screenInvite">
+      <div class="settings-detail-content">
+
+        <div class="invite-hero">
+          <div class="invite-icon-wrap"><i class="fa fa-share-nodes"></i></div>
+          <h3>Invite Providers</h3>
+          <p>Securely invite colleagues for ANA trial demo access</p>
+          <div class="privacy-badge"><i class="fa fa-shield-halved"></i> HIPAA-safe · Isolated demo workspace</div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-envelope"></i></div>
+            <div>
+              <h4>Invite via Email</h4>
+              <p>Share provider details with admin for trial access</p>
+            </div>
+          </div>
+          <div class="form-grid" style="margin-top:20px;">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="inviteName" placeholder="Recipient full name">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="inviteEmail" placeholder="colleague@example.com">
+            </div>
+          </div>
+          <div class="invite-status-list" id="inviteStatusList">
+            <div class="invite-status-row pending">
+              <div class="invite-avatar">SM</div>
+              <div class="invite-info">
+                <strong>Dr. Sarah Mitchell</strong>
+                <span>sarah@clinic.com</span>
+              </div>
+              <span class="invite-badge pending">Pending</span>
+            </div>
+            <div class="invite-status-row accepted">
+              <div class="invite-avatar">RK</div>
+              <div class="invite-info">
+                <strong>Dr. Raj Kumar</strong>
+                <span>raj@hospital.com</span>
+              </div>
+              <span class="invite-badge accepted">Accepted</span>
+            </div>
+            <div class="invite-status-row expired">
+              <div class="invite-avatar">LP</div>
+              <div class="invite-info">
+                <strong>Dr. Lisa Patel</strong>
+                <span>lisa@medcenter.com</span>
+              </div>
+              <span class="invite-badge expired">Expired</span>
+            </div>
+          </div>
+          <div class="edit-actions" style="margin-top:18px;">
+            <button class="primary-btn" id="sendInviteBtn"><i class="fa fa-paper-plane"></i> Send Invite</button>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon orange"><i class="fa fa-link"></i></div>
+            <div>
+              <h4>Share Invite Link</h4>
+              <p>Generate a secure link for trial access</p>
+            </div>
+          </div>
+          <div class="invite-link-box">
+            <input type="text" id="inviteLinkInput" value="https://app.analyticahcs.com/trial/invite?token=xK9pQ2r" readonly="">
+            <button class="copy-link-btn" id="copyLinkBtn"><i class="fa fa-copy"></i> Copy</button>
+          </div>
+          <div class="share-actions-grid">
+            <button class="share-action-btn whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-action-btn email"><i class="fa fa-envelope"></i> Email</button>
+            <button class="share-action-btn sms"><i class="fa fa-comment-sms"></i> SMS</button>
+            <button class="share-action-btn qr" id="generateQrBtn"><i class="fa fa-qrcode"></i> QR Code</button>
+          </div>
+
+          <div class="qr-section hidden" id="qrSection">
+            <div class="qr-placeholder" id="qrPlaceholder">
+              <!-- QR code placeholder -->
+              <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="160" rx="12" fill="var(--surface2)"></rect>
+                <rect x="20" y="20" width="50" height="50" rx="4" fill="none" stroke="var(--primary)" stroke-width="5"></rect>
+                <rect x="31" y="31" width="28" height="28" rx="2" fill="var(--primary)"></rect>
+                <rect x="90" y="20" width="50" height="50" rx="4" fill="none" stroke="var(--primary)" stroke-width="5"></rect>
+                <rect x="101" y="31" width="28" height="28" rx="2" fill="var(--primary)"></rect>
+                <rect x="20" y="90" width="50" height="50" rx="4" fill="none" stroke="var(--primary)" stroke-width="5"></rect>
+                <rect x="31" y="101" width="28" height="28" rx="2" fill="var(--primary)"></rect>
+                <rect x="90" y="90" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="105" y="90" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="120" y="90" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="90" y="105" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="120" y="105" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="105" y="120" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="135" y="120" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+                <rect x="135" y="90" width="10" height="10" rx="1" fill="var(--primary)"></rect>
+              </svg>
+            </div>
+            <p class="qr-label">Scan to register a trial account</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: PRODUCT SUITE ===================== -->
+    <section class="profile-screen hidden" id="screenProducts">
+      <div class="settings-detail-content">
+
+        <div class="product-grid">
+
+          <div class="product-card active">
+            <div class="product-card-top">
+              <div class="product-icon scribe"><i class="fa fa-file-pen"></i></div>
+              <span class="product-status-badge active">Active</span>
+            </div>
+            <h4>Ana Scribe</h4>
+            <p>AI-powered medical documentation and clinical dictation platform.</p>
+            <ul class="product-features">
+              <li><i class="fa fa-check"></i> Real-time voice transcription</li>
+              <li><i class="fa fa-check"></i> SOAP note generation</li>
+              <li><i class="fa fa-check"></i> Multi-specialty templates</li>
+            </ul>
+            <div class="product-card-actions">
+              <button class="primary-btn full-btn"><i class="fa fa-arrow-up-right-from-square"></i> Open Product</button>
+              <button class="outline-btn">Manage Plan</button>
+            </div>
+          </div>
+
+          <div class="product-card trial">
+            <div class="product-card-top">
+              <div class="product-icon coding"><i class="fa fa-code"></i></div>
+              <span class="product-status-badge trial">Trial — 8 days left</span>
+            </div>
+            <h4>Doc-to-Code</h4>
+            <p>AI-assisted medical coding automation for ICD-10 and CPT codes.</p>
+            <ul class="product-features">
+              <li><i class="fa fa-check"></i> ICD-10 code generation</li>
+              <li><i class="fa fa-check"></i> CPT code suggestions</li>
+              <li><i class="fa fa-check"></i> Claim preparation support</li>
+            </ul>
+            <div class="product-card-actions">
+              <button class="primary-btn full-btn"><i class="fa fa-arrow-up-right-from-square"></i> Open Product</button>
+              <button class="upgrade-btn">Upgrade Plan</button>
+            </div>
+          </div>
+
+          <div class="product-card upgrade">
+            <div class="product-card-top">
+              <div class="product-icon rcm"><i class="fa fa-chart-line"></i></div>
+              <span class="product-status-badge upgrade">Upgrade Available</span>
+            </div>
+            <h4>Ana IntelliRCM</h4>
+            <p>Advanced Revenue Cycle Management with claims tracking and analytics.</p>
+            <ul class="product-features">
+              <li><i class="fa fa-check"></i> Claims tracking</li>
+              <li><i class="fa fa-check"></i> Denial management</li>
+              <li><i class="fa fa-check"></i> Revenue forecasting</li>
+            </ul>
+            <div class="product-card-actions">
+              <button class="primary-btn full-btn"><i class="fa fa-arrow-up-right-from-square"></i> Open Product</button>
+              <button class="upgrade-btn">Upgrade Plan</button>
+            </div>
+          </div>
+
+          <div class="product-card not-subscribed">
+            <div class="product-card-top">
+              <div class="product-icon ana360"><i class="fa fa-layer-group"></i></div>
+              <span class="product-status-badge not-subscribed">Not Subscribed</span>
+            </div>
+            <h4>Ana360</h4>
+            <p>Complete healthcare operations ecosystem for enterprise providers.</p>
+            <ul class="product-features">
+              <li><i class="fa fa-check"></i> Unified provider dashboard</li>
+              <li><i class="fa fa-check"></i> Multi-product integration</li>
+              <li><i class="fa fa-check"></i> Enterprise workflow management</li>
+            </ul>
+            <div class="product-card-actions">
+              <button class="primary-btn full-btn"><i class="fa fa-play"></i> Start Free Trial</button>
+              <button class="outline-btn">View Features</button>
+            </div>
+          </div>
+
+          <div class="product-card not-subscribed">
+  <div class="product-card-top">
+    <div class="product-icon ana360"><i class="fa fa-chart-pie"></i></div>
+    <span class="product-status-badge not-subscribed">Not Subscribed</span>
+  </div>
+
+  <h4>Ana IQ™</h4>
+
+  <p>
+    Unified analytics and reporting platform for operational visibility,
+    performance tracking, and revenue insights.
+  </p>
+
+  <ul class="product-features">
+    <li><i class="fa fa-check"></i> Real-time operational analytics</li>
+    <li><i class="fa fa-check"></i> Performance & KPI tracking</li>
+    <li><i class="fa fa-check"></i> Revenue and reporting insights</li>
+  </ul>
+
+  <div class="product-card-actions">
+    <button class="primary-btn full-btn">
+      <i class="fa fa-play"></i> Start Free Trial
+    </button>
+
+    <button class="outline-btn">View Features</button>
+  </div>
+</div>
+          
+
+        </div>
+
+        <div class="detail-card" style="margin-top:24px;">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-receipt"></i></div>
+            <div>
+              <h4>Subscription Management</h4>
+              <p>Manage billing, licenses and invoices</p>
+            </div>
+          </div>
+          <div class="billing-actions">
+            <button class="billing-action-btn"><i class="fa fa-credit-card"></i> Update Payment</button>
+            <button class="billing-action-btn"><i class="fa fa-file-invoice"></i> Download Invoice</button>
+            <button class="billing-action-btn"><i class="fa fa-clock-rotate-left"></i> Billing History</button>
+            <button class="billing-action-btn"><i class="fa fa-users"></i> Manage Seats</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SCREEN: APP INFO ===================== -->
+    <section class="profile-screen hidden" id="screenAppInfo">
+      <div class="settings-detail-content">
+
+        <div class="app-info-hero">
+          <div class="app-logo-icon"><i class="fa fa-hospital"></i></div>
+          <h3>Analytica HCS</h3>
+          <span>AI-Powered Healthcare Platform</span>
+          <div class="app-version-badge">v2.1.0 · Build 4092 · Released May 1, 2026</div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon blue"><i class="fa fa-circle-info"></i></div>
+            <div>
+              <h4>Application Information</h4>
+              <p>Version, build and release details</p>
+            </div>
+          </div>
+          <div class="app-info-rows">
+            <div class="app-info-row"><span>App Version</span><strong>2.1.0</strong></div>
+            <div class="app-info-row"><span>Build Number</span><strong>4092</strong></div>
+            <div class="app-info-row"><span>Release Date</span><strong>May 1, 2026</strong></div>
+            <div class="app-info-row"><span>Platform</span><strong>Web (PWA)</strong></div>
+            <div class="app-info-row"><span>Environment</span><strong>Production</strong></div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon green"><i class="fa fa-shield-halved"></i></div>
+            <div>
+              <h4>Compliance &amp; Security</h4>
+              <p>HIPAA compliance and security standards</p>
+            </div>
+          </div>
+          <div class="compliance-badges">
+            <div class="compliance-badge"><i class="fa fa-circle-check"></i> HIPAA Compliant</div>
+            <div class="compliance-badge"><i class="fa fa-circle-check"></i> SOC 2 Type II</div>
+            <div class="compliance-badge"><i class="fa fa-circle-check"></i> AES-256 Encryption</div>
+            <div class="compliance-badge"><i class="fa fa-circle-check"></i> GDPR Ready</div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <div class="detail-card-icon orange"><i class="fa fa-scale-balanced"></i></div>
+            <div>
+              <h4>Legal &amp; Policies</h4>
+              <p>Privacy, terms and data policies</p>
+            </div>
+          </div>
+          <div class="legal-links">
+            <a href="http://127.0.0.1:5502/profile.html#" class="legal-link"><i class="fa fa-file-shield"></i> Privacy Policy <i class="fa fa-arrow-up-right-from-square"></i></a>
+            <a href="http://127.0.0.1:5502/profile.html#" class="legal-link"><i class="fa fa-file-contract"></i> Terms &amp; Conditions <i class="fa fa-arrow-up-right-from-square"></i></a>
+            <a href="http://127.0.0.1:5502/profile.html#" class="legal-link"><i class="fa fa-hospital"></i> HIPAA Compliance <i class="fa fa-arrow-up-right-from-square"></i></a>
+            <a href="http://127.0.0.1:5502/profile.html#" class="legal-link"><i class="fa fa-lock"></i> Data Security Policy <i class="fa fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /provider-profile-modal -->
+</div><!-- /profile-modal-overlay -->
+
+
+<!-- =====================================================================
+     PHOTO UPLOAD MODAL
+===================================================================== -->
+<div class="photo-modal-overlay hidden" id="photoModalOverlay">
+  <div class="photo-modal">
+
+    <div class="photo-modal-header">
+      <h4>Update Profile Photo</h4>
+      <button class="close-modal-btn" id="closePhotoModal"><i class="fa fa-xmark"></i></button>
+    </div>
+
+    <div class="photo-preview-section">
+      <div class="photo-preview" id="photoPreview">JA</div>
+    </div>
+
+    <div class="photo-actions">
+      <label class="secondary-btn" for="photoFileInput">
+        <i class="fa fa-image"></i> Upload from Gallery
+        <input type="file" id="photoFileInput" accept="image/*" hidden="">
+      </label>
+      <button class="secondary-btn danger-btn" id="removePhotoBtn">
+        <i class="fa fa-trash"></i> Remove Photo
+      </button>
+    </div>
+
+    <div class="photo-footer-actions">
+      <button class="secondary-btn" id="cancelPhotoBtn">Cancel</button>
+      <button class="primary-btn" id="savePhotoBtn"><i class="fa fa-check"></i> Save</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =====================================================================
+     LOGOUT CONFIRMATION MODAL
+===================================================================== -->
+<div class="logout-modal-overlay hidden" id="logoutModalOverlay">
+  <div class="logout-modal">
+    <div class="logout-modal-icon"><i class="fa fa-right-from-bracket"></i></div>
+    <h4>Logout?</h4>
+    <p>Are you sure you want to securely logout from your account?</p>
+    <div class="logout-modal-actions">
+      <button class="secondary-btn" id="cancelLogoutBtn">Cancel</button>
+      <button class="danger-btn-solid" id="confirmLogoutBtn">Logout</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================================================================
+     SUCCESS / ERROR TOAST
+===================================================================== -->
+<div class="success-toast hidden" id="successToast">
+  <i class="fa fa-circle-check"></i>
+  <span>Action completed</span>
+</div>
+
+
+<script src="profile.js"></script>
+
+
+
+</body></html>
