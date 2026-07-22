@@ -1,0 +1,104 @@
+<div class="ticket-detail-modal" role="dialog" aria-modal="true" aria-label="Ticket detail">
+
+  <!-- =========================
+       TOP BAR — Back to Tickets + Close
+  ========================== -->
+  <!-- <header class="td-topbar">
+   
+    <button class="td-close-btn" id="tdCloseBtn" type="button" aria-label="Close ticket detail">
+      <i class="fa fa-xmark"></i>
+    </button>
+  </header> -->
+
+  <!-- =========================
+       HEADER CARD — Ticket + status + created date
+  ========================== -->
+  <section class="td-header-card">
+    
+    <div class="td-icon-box"><i class="fa fa-ticket"></i></div>
+    <div class="td-header-info">
+      <div class="td-header-title-row">
+        <h1 class="td-title" id="tdTitle">Ticket SUP-26</h1>
+        <span class="td-status-badge" id="tdStatusBadge">Pending</span>
+      </div>
+      <p class="td-created-meta" id="tdCreatedMeta">Created on May 20, 2025 · 10:30 AM</p>
+    </div>
+
+    <button class="td-close-btn" id="tdCloseBtn" type="button" aria-label="Close ticket detail">
+      <i class="fa fa-xmark"></i>
+    </button>
+  </section>
+
+  <!-- =========================
+       BODY (left: cards, right: timeline)
+  ========================== -->
+  <div class="td-body">
+
+    <!-- LEFT: stacked info + content cards -->
+    <div class="td-main">
+
+      <!-- INFO GRID -->
+      <section class="td-info-card">
+        <div class="td-info-grid" id="tdInfoGrid"></div>
+      </section>
+
+      <!-- TITLE -->
+      <section class="td-section-card">
+        <div class="td-section-head">
+          <span class="td-section-icon"><i class="fa fa-file-lines"></i></span>
+          <span class="td-section-label">Title</span>
+        </div>
+        <div class="td-section-body" id="tdTitleBody">Encounter Status Not Updating</div>
+      </section>
+
+      <!-- DESCRIPTION -->
+      <section class="td-section-card">
+        <div class="td-section-head">
+          <span class="td-section-icon"><i class="fa fa-file-lines"></i></span>
+          <span class="td-section-label">Description</span>
+        </div>
+        <div class="td-section-body" id="tdDescriptionBody">
+          After the report is finalized, the encounter status continues to display "Scribing in Progress" instead of updating to "Completed."<br>
+          This affects reporting accuracy.
+        </div>
+      </section>
+
+      <!-- RESOLVE NOTE + NOTE row -->
+      <div class="td-row-2col">
+        <section class="td-section-card">
+          <div class="td-section-head">
+            <span class="td-section-icon"><i class="fa fa-comment-dots"></i></span>
+            <span class="td-section-label">Resolve Note</span>
+          </div>
+          <div class="td-section-body" id="tdResolveNote">-</div>
+        </section>
+
+        <section class="td-section-card">
+          <div class="td-section-head">
+            <span class="td-section-icon"><i class="fa fa-note-sticky"></i></span>
+            <span class="td-section-label">Note</span>
+          </div>
+          <div class="td-section-body" id="tdNote">-</div>
+        </section>
+      </div>
+
+      <!-- SUPPORT ATTACHMENT(S) -->
+      <section class="td-section-card">
+        <div class="td-section-head">
+          <span class="td-section-icon"><i class="fa fa-paperclip"></i></span>
+          <span class="td-section-label">Support Attachment(s)</span>
+        </div>
+        <div class="td-attach-list" id="tdAttachList"></div>
+      </section>
+    </div>
+
+    <!-- RIGHT: Ticket Timeline -->
+    <aside class="td-sidebar">
+      <div class="td-timeline-card">
+        <h3 class="td-timeline-title">Ticket Timeline</h3>
+        <div class="td-timeline" id="tdTimeline"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+<!-- /ticket-detail-modal -->
