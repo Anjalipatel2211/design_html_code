@@ -1,719 +1,237 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytica HCS – Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Analytica HCS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="shared/common.css">
+
+  <!-- Support Tickets Styles -->
 </head>
 
 <body>
 
-  
-  <!-- =====================================================
-     CALENDAR FILTER MODAL
-===================================================== -->
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="modal-overlay" id="calendarModal">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
 
-  <div class="calendar-modal">
-
-    <div class="modal-header">
-
-      <div>
-        <h2>Filter Tickets</h2>
-        <p>Select date range to filter tickets</p>
+    <div class="sidebar-logo">
+      <div class="logo-image">
+        <img src="shared/images/logo.svg" alt="Analytica HCS Logo">
       </div>
 
-      <button class="modal-close"
-        onclick="closeCalendarModal()">
-        <i class="fa fa-xmark"></i>
+      <button class="sidebar-collapse-btn" id="collapseBtn">
+        <i class="fa fa-chevron-left"></i>
       </button>
-
     </div>
 
-    <div class="calendar-form">
+    <nav class="sidebar-nav">
 
-      <!-- FILTER TYPE -->
-      <div class="form-group">
+      <ul>
+        <li class="nav-item" data-page="dashboard">
+          <a href="#">
+            <i class="fa fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
 
-        <label>Filter Type</label>
+        <li class="nav-item" data-page="analytics">
+          <a href="#">
+            <i class="fa fa-chart-line"></i>
+            <span>Report & Analytics</span>
+          </a>
+        </li>
 
-        <select id="calendarFilterType"
-          onchange="handleCalendarTypeChange()">
+        <li class="nav-item" data-page="patients">
+          <a href="#">
+            <i class="fa fa-user-group"></i>
+            <span>Patients</span>
+          </a>
+        </li>
 
-          <option value="day">Day</option>
-          <option value="week">Week</option>
-          <option value="month">Month</option>
-          <option value="custom">Custom Range</option>
+        <li class="nav-item" data-page="appointments">
+          <a href="#">
+            <i class="fa fa-calendar-days"></i>
+            <span>Appointments</span>
+          </a>
+        </li>
+      </ul>
 
-        </select>
+      <div class="nav-section-label">CLAIMS</div>
+
+      <ul>
+        <li class="nav-item" data-page="claim-dashboard">
+          <a href="#">
+            <i class="fa fa-chart-pie"></i>
+            <span>Claim Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-page="claim-list">
+          <a href="#">
+            <i class="fa fa-list-check"></i>
+            <span>Claim List</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-section-label">DOCUMENTATION</div>
+
+      <ul>
+        <li class="nav-item" data-page="scribe">
+          <a href="#">
+            <i class="fa fa-file-pen"></i>
+            <span>Scribe Documents</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-page="templates">
+          <a href="#">
+            <i class="fa fa-copy"></i>
+            <span>Templates</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-page="smart-notes">
+          <a href="#">
+            <i class="fa fa-note-sticky"></i>
+            <span>Smart Notes</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-section-label">SUPPORT</div>
+
+      <ul>
+        <li class="nav-item active-secondary" data-page="support-tickets">
+          <a href="#">
+            <i class="fa fa-ticket"></i>
+            <span>Support Tickets</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-page="feedback">
+          <a href="#">
+            <i class="fa fa-comment-dots"></i>
+            <span>Feedback</span>
+          </a>
+        </li>
+      </ul>
+
+    </nav>
+  </aside>
+
+  <!-- ===================== MAIN WRAPPER ===================== -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="top-header">
+
+      <div class="header-left">
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="welcome-block">
+          <h1 class="welcome-title">
+            Welcome, Dr. Anderson
+          </h1>
+
+          <p class="welcome-date">
+            <i class="fa fa-calendar"></i>
+            Wednesday, May 13, 2026
+          </p>
+        </div>
 
       </div>
 
-      <!-- SINGLE DATE -->
-      <div class="form-group"
-        id="singleDateGroup">
+      <div class="header-center">
 
-        <label>Select Date</label>
+        <div class="search-wrapper">
+          <i class="fa fa-search search-icon"></i>
 
-        <input
-          type="date"
-          id="calendarSingleDate"
-        />
-
-      </div>
-
-      <!-- CUSTOM RANGE -->
-      <div class="custom-range hidden"
-        id="customRangeGroup">
-
-        <div class="form-group">
-
-          <label>Start Date</label>
-
-          <input
-            type="date"
-            id="calendarStartDate"
-          />
-
-        </div>
-
-        <div class="form-group">
-
-          <label>End Date</label>
-
-          <input
-            type="date"
-            id="calendarEndDate"
-          />
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="modal-footer">
-
-      <button class="btn-secondary"
-        onclick="resetCalendarFilter()">
-        Reset
-      </button>
-
-      <button class="btn-primary"
-        onclick="applyCalendarFilter()">
-        Apply Filter
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ===================== SIDEBAR ===================== -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-image">
-      <img src="images/logo.svg" alt="Analytica HCS Logo">
-    </div>
-    <button class="sidebar-collapse-btn" id="collapseBtn">
-      <i class="fa fa-chevron-left"></i>
-    </button>
-  </div>
-
-  <nav class="sidebar-nav">
-    <ul>
-      <li class="nav-item" data-page="dashboard">
-        <a href="#"><i class="fa fa-home"></i><span>Dashboard</span></a>
-      </li>
-      <li class="nav-item" data-page="analytics">
-        <a href="#"><i class="fa fa-chart-line"></i><span>Report & Analytics</span></a>
-      </li>
-      <li class="nav-item" data-page="patients">
-        <a href="#"><i class="fa fa-user-group"></i><span>Patients</span></a>
-      </li>
-      <li class="nav-item" data-page="appointments">
-        <a href="#"><i class="fa fa-calendar-days"></i><span>Appointments</span></a>
-      </li>
-    </ul>
-
-    <div class="nav-section-label">CLAIMS</div>
-    <ul>
-      <li class="nav-item" data-page="claim-dashboard">
-        <a href="#"><i class="fa fa-chart-pie"></i><span>Claim Dashboard</span></a>
-      </li>
-      <li class="nav-item" data-page="claim-list">
-        <a href="#"><i class="fa fa-list-check"></i><span>Claim List</span><span class="nav-badge orange">12</span></a>
-      </li>
-    </ul>
-
-    <div class="nav-section-label">DOCUMENTATION</div>
-    <ul>
-      <li class="nav-item" data-page="scribe">
-        <a href="#"><i class="fa fa-file-pen"></i><span>Scribe Documents</span></a>
-      </li>
-      <li class="nav-item" data-page="templates">
-        <a href="#"><i class="fa fa-copy"></i><span>Templates</span></a>
-      </li>
-      <li class="nav-item" data-page="smart-notes">
-        <a href="#"><i class="fa fa-note-sticky"></i><span>Smart Notes</span></a>
-      </li>
-    </ul>
-
-    <div class="nav-section-label">SUPPORT</div>
-    <ul>
-      <li class="nav-item active-secondary" data-page="support-tickets">
-        <a href="#"><i class="fa fa-ticket"></i><span>Support Tickets</span><span class="nav-badge red">5</span></a>
-      </li>
-      <li class="nav-item" data-page="feedback">
-        <a href="#"><i class="fa fa-comment-dots"></i><span>Feedback</span></a>
-      </li>
-    </ul>
-  </nav>
-</aside>
-
-<!-- ===================== MAIN WRAPPER ===================== -->
-<div class="main-wrapper" id="mainWrapper">
-
-  <!-- ===== TOP HEADER ===== -->
-  <header class="top-header">
-    <div class="header-left">
-      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa fa-bars"></i></button>
-      <div class="welcome-block">
-        <h1 class="welcome-title">Welcome, Dr. Anderson</h1>
-        <p class="welcome-date"><i class="fa fa-calendar"></i> Wednesday, May 13, 2026</p>
-      </div>
-    </div>
-    <div class="header-center">
-      <div class="search-wrapper">
-        <i class="fa fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="Search patient" id="searchPatient" />
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="clinic-selector">
-        <i class="fa fa-location-dot"></i>
-        <span>North Clinic</span>
-        <i class="fa fa-chevron-down"></i>
-      </div>
-      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-        <i class="fa fa-moon" id="themeIcon"></i>
-      </button>
-      <div class="notif-bell">
-        <i class="fa fa-bell"></i>
-        <span class="notif-badge">3</span>
-      </div>
-      <div class="user-profile" id="userProfileBtn">
-        <div class="user-avatar">JA</div>
-        <div class="user-info">
-          <span class="user-name">James Anderson, MD</span>
-          <span class="user-role">Cardiology</span>
-        </div>
-        <i class="fa fa-chevron-down"></i>
-        <div class="user-dropdown" id="userDropdown">
-          <a href="#"><i class="fa fa-user"></i> Profile</a>
-          <a href="#"><i class="fa fa-gear"></i> Settings</a>
-          <a href="#"><i class="fa fa-right-from-bracket"></i> Logout</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===== CONTENT AREA ===== -->
-  <div class="content-area">
-    <div class="content-left">
-
-      <!-- STAT CARDS -->
-      <div class="stat-cards">
-        <div class="stat-card" data-filter="open">
-          <div class="stat-icon blue"><i class="fa fa-ticket"></i></div>
-          <div class="stat-info">
-            <p class="stat-label">Open Tickets</p>
-            <h2 class="stat-count" data-target="7">0</h2>
-          </div>
-        </div>
-        <div class="stat-card" data-filter="in-progress">
-          <div class="stat-icon orange"><i class="fa fa-spinner"></i></div>
-          <div class="stat-info">
-            <p class="stat-label">In Progress</p>
-            <h2 class="stat-count" data-target="3">0</h2>
-          </div>
-        </div>
-        <div class="stat-card" data-filter="awaiting">
-          <div class="stat-icon yellow"><i class="fa fa-comment-dots"></i></div>
-          <div class="stat-info">
-            <p class="stat-label">Awaiting Response</p>
-            <h2 class="stat-count" data-target="2">0</h2>
-          </div>
-        </div>
-        <div class="stat-card" data-filter="resolved">
-          <div class="stat-icon green"><i class="fa fa-circle-check"></i></div>
-          <div class="stat-info">
-            <p class="stat-label">Resolved</p>
-            <h2 class="stat-count" data-target="25">0</h2>
-          </div>
-        </div>
-      </div>
-
-      <!-- RECENT TICKETS PANEL -->
-      <div class="panel tickets-panel">
-        <div class="panel-header">
-          <h2>Recent Tickets</h2>
-          <div class="panel-actions">
-            <a href="#" class="view-all-link">
-              View all tickets
-              <i class="fa fa-arrow-right"></i>
-            </a>
-            <button class="btn-secondary" onclick="openCalendar()">
-              <i class="fa fa-calendar"></i>
-              View Calendar
-            </button>
-            <button class="btn-primary" onclick="openModal()">
-              <i class="fa fa-plus"></i>
-              Create New
-            </button>
-          </div>
-        </div>
-
-        <div class="table-toolbar">
           <input
             type="text"
-            class="table-search"
-            placeholder="Search tickets..."
-            id="ticketSearch"
-            oninput="filterTickets()"
-          />
-          <div class="filter-pills" id="filterPills">
-            <span class="filter-pill active" onclick="setFilter('all', this)">All</span>
-            <span class="filter-pill" onclick="setFilter('open', this)">Open</span>
-            <span class="filter-pill" onclick="setFilter('in-progress', this)">In Progress</span>
-            <span class="filter-pill" onclick="setFilter('awaiting', this)">Awaiting</span>
-            <span class="filter-pill" onclick="setFilter('resolved', this)">Resolved</span>
-          </div>
+            class="search-input"
+            placeholder="Search patient"
+            id="searchPatient">
         </div>
 
-        <div class="table-scroll">
-          <table class="tickets-table">
-            <thead>
-              <tr>
-                <th>TICKET ID</th>
-                <th>SUBJECT</th>
-                <th>ASSIGNED TO</th>
-                <th>CREATED ON</th>
-                <th>STATUS</th>
-                <th>PRIORITY</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="ticketsTableBody"></tbody>
-          </table>
-        </div>
       </div>
 
-      <!-- CHARTS ROW -->
-      <div class="charts-row">
-        <div class="panel chart-panel">
-          <h3 class="chart-title">Tickets by Status</h3>
-          <div class="chart-wrapper">
-            <canvas id="statusChart"></canvas>
-            <div class="chart-center-label" id="statusCenter">
-              <span class="center-num">36</span>
-              <span class="center-sub">Total</span>
-            </div>
-          </div>
-          <ul class="chart-legend" id="statusLegend"></ul>
+      <div class="header-right">
+
+        <div class="clinic-selector">
+          <i class="fa fa-location-dot"></i>
+          <span>North Clinic</span>
+          <i class="fa fa-chevron-down"></i>
         </div>
 
-        <div class="panel chart-panel">
-          <h3 class="chart-title">Tickets by Priority</h3>
-          <div class="chart-wrapper">
-            <canvas id="priorityChart"></canvas>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fa fa-moon" id="themeIcon"></i>
+        </button>
+
+        <button class="notif-bell" id="notificationBell" aria-label="Open notifications" aria-expanded="false">
+          <i class="fa fa-bell"></i>
+          <span class="notif-badge" id="notificationBadge">3</span>
+        </button>
+
+        <div class="user-profile" id="userProfileBtn">
+
+          <div class="user-avatar">JA</div>
+
+          <div class="user-info">
+            <span class="user-name">James Anderson, MD</span>
+            <span class="user-role">Cardiology</span>
           </div>
-          <ul class="chart-legend" id="priorityLegend"></ul>
+
+          <i class="fa fa-chevron-down"></i>
+
+          <div class="user-dropdown" id="userDropdown">
+            <a href="#"><i class="fa fa-user"></i> Profile</a>
+            <a href="#"><i class="fa fa-gear"></i> Settings</a>
+            <a href="#"><i class="fa fa-right-from-bracket"></i> Logout</a>
+          </div>
+
         </div>
 
-        <div class="panel system-status-panel">
-          <div class="panel-header">
-            <h3>System Status</h3>
-            <div class="status-tabs">
-              <button class="status-tab active" onclick="switchStatusTab('modules', this)">Modules</button>
-              <button class="status-tab" onclick="switchStatusTab('services', this)">Services</button>
-            </div>
-          </div>
-          <ul class="status-list" id="statusList">
-            <li class="status-row">
-              <span class="status-name">Ana Scribe</span>
-              <span class="status-pill operational">Subscribed</span>
-              <button class="status-eye"><i class="fa fa-eye"></i></button>
-            </li>
-            <li class="status-row">
-              <span class="status-name">Ana Doc-to-Code</span>
-              <span class="status-pill upgrade-pill">Upgrade Plan</span>
-              <button class="status-eye upgrade-btn" onclick="openUpgradeModal('Ana Doc-to-Code')"><i class="fa fa-arrow-up-right-dots"></i></button>
-            </li>
-            <li class="status-row">
-              <span class="status-name">Ana Intelli RCM</span>
-              <span class="status-pill upgrade-pill">Upgrade Plan</span>
-              <button class="status-eye upgrade-btn" onclick="openUpgradeModal('Ana Intelli RCM')"><i class="fa fa-arrow-up-right-dots"></i></button>
-            </li>
-            <li class="status-row">
-              <span class="status-name">Ana 360</span>
-              <span class="status-pill upgrade-pill">Upgrade Plan</span>
-              <button class="status-eye upgrade-btn" onclick="openUpgradeModal('Ana 360')"><i class="fa fa-arrow-up-right-dots"></i></button>
-            </li>
-          </ul>
-        </div>
       </div>
 
-      <!-- ARTICLES + ANNOUNCEMENTS -->
-      <div class="bottom-row">
-        <div class="panel articles-panel">
-          <div class="panel-header">
-            <h3>Popular Articles</h3>
-            <a href="#" class="view-all-link">View all articles <i class="fa fa-arrow-right"></i></a>
-          </div>
-          <ul class="articles-list">
-            <li class="article-item">
-              <div class="article-icon"><i class="fa fa-file-lines"></i></div>
-              <div class="article-body">
-                <p class="article-title">How to upload patient documents</p>
-                <span class="article-meta">Updated 2d ago &nbsp;•&nbsp; 1.2k views</span>
-              </div>
-            </li>
-            <li class="article-item">
-              <div class="article-icon"><i class="fa fa-file-lines"></i></div>
-              <div class="article-body">
-                <p class="article-title">Troubleshooting EHR integration issues</p>
-                <span class="article-meta">Updated 3d ago &nbsp;•&nbsp; 980 views</span>
-              </div>
-            </li>
-            <li class="article-item">
-              <div class="article-icon"><i class="fa fa-file-lines"></i></div>
-              <div class="article-body">
-                <p class="article-title">Scribe note not saving – Quick fix guide</p>
-                <span class="article-meta">Updated 5d ago &nbsp;•&nbsp; 754 views</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+    </header>
 
-        <div class="panel announcements-panel">
-          <div class="panel-header">
-            <h3>Announcements</h3>
-            <a href="#" class="view-all-link">View all <i class="fa fa-arrow-right"></i></a>
-          </div>
-          <ul class="announce-list">
-            <li class="announce-item">
-              <div class="announce-body">
-                <p class="announce-title">System Maintenance – May 25, 2026</p>
-                <span class="announce-badge scheduled">Scheduled</span>
-              </div>
-              <span class="announce-date">May 22, 2026</span>
-            </li>
-            <li class="announce-item">
-              <div class="announce-body">
-                <p class="announce-title">New Feature: Smart Template Library</p>
-                <span class="announce-badge new">New</span>
-              </div>
-              <span class="announce-date">May 20, 2026</span>
-            </li>
-            <li class="announce-item">
-              <div class="announce-body">
-                <p class="announce-title">Billing Code Library Update</p>
-                <span class="announce-badge update">Update</span>
-              </div>
-              <span class="announce-date">May 18, 2026</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <!-- ===================== PAGE CONTENT ===================== -->
+    <div class="content-wrapper">
 
-    </div><!-- /content-left -->
+      <!-- Paste support-tickets.html content here
+           OR dynamically load it later -->
+      <div id="pageContent"></div>
 
-    <!-- ===== RIGHT PANEL: Chat ===== -->
-    <div class="content-right">
-      <div class="panel chat-panel" id="chatPanel">
-        <div class="chat-header">
-          <div class="chat-header-left">
-            <h3>Ana Chat Support</h3>
-            <div class="chat-tabs">
-              <button class="chat-tab active" data-tab="department" onclick="switchChatTab('department', this)">
-                Department <span class="chat-tab-badge">4</span>
-              </button>
-              <button class="chat-tab" data-tab="user" onclick="switchChatTab('user', this)">
-                User <span class="chat-tab-badge">3</span>
-              </button>
-              <button class="chat-tab" data-tab="ticket" onclick="switchChatTab('ticket', this)">
-                Ticket <span class="chat-tab-badge">5</span>
-              </button>
-            </div>
-          </div>
-          <div class="chat-header-actions">
-            <button class="icon-btn"><i class="fa fa-ellipsis"></i></button>
-            <button class="icon-btn close-chat-btn" id="closeChatThread" style="display:none" onclick="closeChatThread()">
-              <i class="fa fa-xmark"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- Conversation List -->
-        <div class="conversation-list" id="conversationList"></div>
-
-        <!-- Chat Thread -->
-        <div class="chat-thread hidden" id="chatThread">
-          <div class="thread-header">
-            <button class="back-btn" onclick="closeChatThread()">
-              <i class="fa fa-arrow-left"></i>
-            </button>
-            <div class="thread-avatar" id="threadAvatar">CT</div>
-            <div class="thread-info">
-              <span class="thread-name" id="threadName">Coding Team</span>
-              <span class="thread-status">Online</span>
-            </div>
-            <button class="icon-btn" style="margin-left:auto">
-              <i class="fa fa-ellipsis-vertical"></i>
-            </button>
-          </div>
-
-          <!-- FIX: Single chatMessages container (was duplicated) -->
-          <div class="chat-messages" id="chatMessages"></div>
-
-          <div class="typing-indicator" id="typingIndicator" style="display:none">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="chat-input-area">
-            <button class="icon-btn attach-btn" onclick="triggerFileUpload()"><i class="fa fa-plus"></i></button>
-            <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." />
-            <!-- FIX: Removed erroneous fa-magnifying-glass button that also called sendMessage() -->
-            <button class="send-btn" onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
-          </div>
-          <input type="file" id="fileUploadInput" style="display:none" onchange="handleFileUpload(event)" />
-        </div>
-      </div>
-    </div><!-- /content-right -->
-  </div><!-- /content-area -->
-</div><!-- /main-wrapper -->
-
-<!-- ===================== CREATE TICKET MODAL ===================== -->
-<div class="modal-overlay" id="ticketModal" onclick="closeModalOutside(event)">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h3><i class="fa fa-ticket"></i> Create New Ticket</h3>
-      <button class="modal-close" onclick="closeModal()"><i class="fa fa-xmark"></i></button>
     </div>
-    <form class="modal-form" onsubmit="submitTicket(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Subject <span class="req">*</span></label>
-          <input type="text" id="mSubject" placeholder="Ticket subject" required />
-        </div>
-        <!-- FIX: Added mPriority field referenced in submitTicket() -->
-        <div class="form-group">
-          <label>Priority</label>
-          <select id="mPriority" >
-            <option value="">Select priority</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="form-row">
-        <!-- FIX: Added mDept field referenced in submitTicket() -->
-        <div class="form-group">
-          <label>Department</label>
-          <select id="mDept" >
-            <option value="">Select Department</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Neurology">Neurology</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Radiology">Radiology</option>
-            <option value="Emergency">Emergency</option>
-            <option value="ICU">ICU</option>
-            <option value="General Medicine">General Medicine</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Dermatology">Dermatology</option>
-            <option value="Gynecology">Gynecology</option>
-            <option value="Oncology">Oncology</option>
-            <option value="ENT">ENT</option>
-            <option value="Pathology">Pathology</option>
-            <option value="Physiotherapy">Physiotherapy</option>
-          </select>
-        </div>
-        <!-- FIX: Added mAssigned field referenced in submitTicket() -->
-        <div class="form-group">
-          <label>Assign To</label>
-          <select id="mAssigned" >
-
-  <option value="">Assign to staff</option>
-
-  <!-- Cardiology -->
-  <option value="Dr. James Anderson - Cardiology">
-    Dr. James Anderson - Cardiology
-  </option>
-
-  <option value="Dr. Sarah Wilson - Cardiology">
-    Dr. Sarah Wilson - Cardiology
-  </option>
-
-  <!-- Neurology -->
-  <option value="Dr. Emily Carter - Neurology">
-    Dr. Emily Carter - Neurology
-  </option>
-
-  <option value="Dr. David Lee - Neurology">
-    Dr. David Lee - Neurology
-  </option>
-
-  <!-- Orthopedics -->
-  <option value="Dr. Michael Brown - Orthopedics">
-    Dr. Michael Brown - Orthopedics
-  </option>
-
-  <option value="Dr. Olivia Taylor - Orthopedics">
-    Dr. Olivia Taylor - Orthopedics
-  </option>
-
-  <!-- Radiology -->
-  <option value="Dr. Sophia Martin - Radiology">
-    Dr. Sophia Martin - Radiology
-  </option>
-
-  <option value="Dr. Daniel White - Radiology">
-    Dr. Daniel White - Radiology
-  </option>
-
-  <!-- Emergency -->
-  <option value="Dr. Ethan Walker - Emergency">
-    Dr. Ethan Walker - Emergency
-  </option>
-
-  <option value="Dr. Ava Harris - Emergency">
-    Dr. Ava Harris - Emergency
-  </option>
-
-  <!-- ICU -->
-  <option value="Dr. William Scott - ICU">
-    Dr. William Scott - ICU
-  </option>
-
-  <option value="Dr. Mia Young - ICU">
-    Dr. Mia Young - ICU
-  </option>
-
-  <!-- General Medicine -->
-  <option value="Dr. Benjamin Hall - General Medicine">
-    Dr. Benjamin Hall - General Medicine
-  </option>
-
-  <option value="Dr. Charlotte Allen - General Medicine">
-    Dr. Charlotte Allen - General Medicine
-  </option>
-
-  <!-- Pediatrics -->
-  <option value="Dr. Lucas King - Pediatrics">
-    Dr. Lucas King - Pediatrics
-  </option>
-
-  <option value="Dr. Amelia Wright - Pediatrics">
-    Dr. Amelia Wright - Pediatrics
-  </option>
-
-  <!-- Dermatology -->
-  <option value="Dr. Harper Green - Dermatology">
-    Dr. Harper Green - Dermatology
-  </option>
-
-  <!-- Gynecology -->
-  <option value="Dr. Evelyn Baker - Gynecology">
-    Dr. Evelyn Baker - Gynecology
-  </option>
-
-  <!-- Oncology -->
-  <option value="Dr. Henry Adams - Oncology">
-    Dr. Henry Adams - Oncology
-  </option>
-
-  <!-- ENT -->
-  <option value="Dr. Alexander Nelson - ENT">
-    Dr. Alexander Nelson - ENT
-  </option>
-
-  <!-- Pathology -->
-  <option value="Dr. Victoria Hill - Pathology">
-    Dr. Victoria Hill - Pathology
-  </option>
-
-  <!-- Physiotherapy -->
-  <option value="Dr. Grace Mitchell - Physiotherapy">
-    Dr. Grace Mitchell - Physiotherapy
-  </option>
-
-</select>   
-        </div>
-      </div>
-
-      <div class="form-group full">
-        <label>Description <span class="req">*</span> </label>
-        <textarea id="mDesc" rows="3" placeholder="Describe the issue..."></textarea>
-      </div>
-      <div class="form-group full">
-        <label>Attachment</label>
-        <div class="file-drop-zone" onclick="document.getElementById('mFile').click()">
-          <i class="fa fa-cloud-arrow-up"></i>
-          <span>Click to upload or drag & drop</span>
-        </div>
-        <input type="file" id="mFile" style="display:none" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
-        <button type="submit" class="btn-primary">Submit Ticket</button>
-      </div>
-    </form>
   </div>
-</div>
 
-<!-- ===================== UPGRADE MODAL ===================== -->
-<div class="modal-overlay" id="upgradeModal" onclick="closeUpgradeModalOutside(event)">
-  <div class="modal-box upgrade-modal-box">
-    <div class="modal-header">
-      <h3><i class="fa fa-rocket"></i> Unlock <span id="upgradeModuleName">Module</span></h3>
-      <button class="modal-close" onclick="closeUpgradeModal()"><i class="fa fa-xmark"></i></button>
-    </div>
-    <div class="upgrade-modal-body">
-      <div class="upgrade-icon-wrap">
-        <i class="fa fa-lock"></i>
-      </div>
-      <p class="upgrade-desc">This module is not included in your current plan. Upgrade to access advanced features and unlock the full Analytica HCS experience.</p>
-      <ul class="upgrade-features">
-        <li><i class="fa fa-circle-check"></i> Unlimited module access</li>
-        <li><i class="fa fa-circle-check"></i> Priority support & SLA</li>
-        <li><i class="fa fa-circle-check"></i> Advanced analytics & reporting</li>
-        <li><i class="fa fa-circle-check"></i> Dedicated account manager</li>
-      </ul>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeUpgradeModal()">Maybe Later</button>
-      <button class="btn-primary upgrade-cta-btn" onclick="handleUpgradeClick()">
-        <i class="fa fa-rocket"></i> Upgrade Plan
-      </button>
-    </div>
-  </div>
-</div>
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
 
-<!-- ===================== TOAST ===================== -->
-<div class="toast" id="toast"></div>
+  
 
-<!-- ===================== OVERLAY ===================== -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <!-- Shared JS -->
+  <script src="shared/common.js"></script>
 
-<script src="script.js"></script>
+
 </body>
 </html>

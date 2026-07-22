@@ -1,0 +1,275 @@
+<!-- =====================================================
+     DASHBOARD — content injected into index.html
+     Sidebar + header live in the parent shell.
+===================================================== -->
+
+<div class="content-area">
+
+  <!-- ===== STAT CARDS / KPIs (full-width row) ===== -->
+  <div class="stat-cards" id="kpiRow"></div>
+
+  <!-- ===== QUICK ACTIONS (full-width row) ===== -->
+  
+    <div class="quick-actions" id="quickActions"></div>
+  
+
+  <!-- ===== MAIN 3-COLUMN GRID: Schedule / Workflow+Encounter / Insights ===== -->
+  <div class="dash-grid">
+
+    <!-- Column 1: Today's Schedule -->
+    <div class="dash-col dash-col-schedule">
+      <div class="panel schedule-panel" aria-labelledby="scheduleTitle">
+        <div class="panel-header">
+          <h3 id="scheduleTitle">Today's Schedule</h3>
+          <div class="panel-actions">
+            <a href="#" class="view-all-link">View Calendar
+              <i class="fa fa-calendar"></i>
+            </a>
+            <select id="scheduleFilter" class="qa-select"></select>
+          </div>
+        </div>
+        <div class="schedule-list" id="scheduleList"></div>
+      </div>
+    </div>
+
+    <!-- Column 2: Workflow + Encounter stacked -->
+    <div class="dash-col dash-col-center">
+      <div class="dash-stack">
+
+        <div class="panel workflow-panel">
+          <div class="panel-header">
+            <h3>Workflow Overview</h3>
+            <button class="chip-btn" type="button">
+              <i class="fa fa-calendar"></i>
+              Apr 28 - May 04
+              <i class="fa fa-chevron-down"></i>
+            </button>
+          </div>
+          <div class="workflow-track" id="workflowTrack"></div>
+          <div class="workflow-stats" id="workflowStats"></div>
+        </div>
+
+        <div class="panel encounter-panel">
+          <div class="panel-header">
+            <h3>Encounter Queue</h3>
+            <div class="encounter-patient">
+              <span class="encounter-avatar">
+                <i class="fa fa-user"></i>
+              </span>
+              <div>
+                <div class="encounter-name">Robert Johnson</div>
+                <div class="encounter-id">ID: APT-2045</div>
+              </div>
+            </div>
+          </div>
+          <div class="encounter-steps" id="encounterSteps"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Column 3: Key Insights -->
+    <div class="dash-col dash-col-insights">
+      <div class="panel insights-panel">
+        <div class="panel-header">
+          <h3>Key Insights</h3>
+          <button class="chip-btn chip-btn-soft" type="button">
+            Last 7 Days
+            <i class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+        <div class="insights-stack" id="insightsStack"></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /dash-grid -->
+
+  <!-- ===== BOTTOM 2-COLUMN GRID: My Tasks / Transfer Encounters ===== -->
+  <div class="dash-grid-bottom">
+
+    <!-- My Tasks (wide) -->
+    <div class="panel tasks-panel">
+      <div class="panel-header">
+        <div class="tasks-head-left">
+          <span class="tasks-icon">
+            <i class="fa fa-clipboard-list"></i>
+          </span>
+          <div>
+            <h3>My Tasks</h3>
+            <p class="card-sub">Track and manage your tasks</p>
+          </div>
+        </div>
+        <a href="#" class="view-all-link">
+          View all <i class="fa fa-chevron-right"></i>
+        </a>
+      </div>
+
+      <div class="tasks-toolbar">
+        <div class="tabs" id="taskTabs"></div>
+        <button class="btn-primary" type="button" id="addTaskBtn">
+          <i class="fa fa-plus"></i> Add Task
+        </button>
+      </div>
+
+      <div class="tasks-table" id="tasksTable"></div>
+    </div>
+
+    <!-- Staff Transfer (narrow)
+    <div class="panel staff-transfer-panel">
+      <div class="panel-header staff-head">
+        <span class="tasks-icon">
+          <i class="fa fa-users"></i>
+        </span>
+        <div>
+          <h3>Transfer Encounters</h3>
+          <p class="card-sub">Reassign encounters to staff</p>
+        </div>
+      </div>
+
+      <div class="staff-card staff-unassigned">
+        <div class="staff-card-left">
+          <span class="staff-mini-icon staff-mini-red">
+            <i class="fa fa-clipboard-list"></i>
+          </span>
+          <span>Unassigned</span>
+        </div>
+        <span class="staff-count staff-count-red">3</span>
+      </div>
+
+      <div class="staff-section">
+        <div class="staff-section-title">
+          <i class="fa fa-user"></i>
+          Assign to Scribe
+        </div>
+        <div class="staff-row">
+          <button class="select-pill" type="button" id="staffSelectBtn">
+            <span>
+              <i class="fa fa-user"></i>
+              <span id="staffSelectLabel">Select staff</span>
+            </span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <button class="btn-primary" type="button">Assign</button>
+        </div>
+      </div>
+
+      <div class="staff-section">
+        <div class="staff-row staff-row-stretch">
+          <span class="staff-refresh-icon">
+            <i class="fa fa-arrows-rotate"></i>
+          </span>
+          <div>
+            <div class="staff-section-title staff-section-title-plain">Auto Assign</div>
+            <p class="staff-section-help">Automatically assign to next available scribe</p>
+          </div>
+          <button class="btn-secondary btn-autoassign" type="button">
+            <i class="fa fa-arrows-rotate"></i> Auto Assign
+          </button>
+        </div>
+      </div>
+
+      <a href="#" class="staff-workload">
+        <div class="staff-workload-left">
+          <i class="fa fa-users"></i>
+          <div>
+            <div class="staff-workload-title">Manage Staff Workload</div>
+            <div class="staff-workload-sub">View capacity &amp; availability</div>
+          </div>
+        </div>
+        <i class="fa fa-chevron-right"></i>
+      </a>
+    </div> -->
+
+  </div>
+  <!-- /dash-grid-bottom -->
+
+</div>
+<!-- /content-area -->
+
+<!-- =========================
+     Modals (Add Task, Staff list)
+========================= -->
+<div class="modal" id="addTaskModal" hidden role="dialog" aria-modal="true" aria-labelledby="addTaskTitle">
+  <div class="modal-card">
+    <header class="modal-head">
+      <h3 id="addTaskTitle">Add Task</h3>
+      <button class="icon-btn" id="addTaskClose" type="button" aria-label="Close">
+        <i class="fa fa-xmark"></i>
+      </button>
+    </header>
+    <form class="modal-body" id="addTaskForm" novalidate>
+      <label class="field">
+        <span>Task title</span>
+        <input name="title" required minlength="3" placeholder="e.g. Review patient note" />
+      </label>
+      <div class="field-row">
+        <label class="field">
+          <span>Patient</span>
+          <input name="patient" required placeholder="Patient name" />
+        </label>
+        <label class="field">
+          <span>Due</span>
+          <input name="due" required placeholder="Today, 4:00 PM" />
+        </label>
+      </div>
+      <div class="field-row">
+        <label class="field">
+          <span>Priority</span>
+          <select name="priority" required>
+            <option value="">Select…</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Status</span>
+          <select name="status" required>
+            <option value="">Select…</option>
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>In Review</option>
+          </select>
+        </label>
+      </div>
+      <label class="field">
+        <span>Assigned To <span class="field-optional">(optional)</span></span>
+        <select name="assignedStaff">
+          <option value="">Select staff…</option>
+          <option>Sarah Wilson</option>
+          <option>Robert Johnson</option>
+          <option>Michael Davis</option>
+          <option>Linda Brown</option>
+        </select>
+      </label>
+      <div class="field">
+        <span>Attachments <span class="field-optional">(optional)</span></span>
+        <div class="dropzone" id="taskDropzone" tabindex="0" role="button" aria-label="Upload attachments">
+          <input type="file" id="taskFileInput" name="attachments" multiple hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+          <i class="fa fa-cloud-arrow-up"></i>
+          <p class="dropzone-text"><button type="button" class="link-btn" id="taskChooseFileBtn">Choose File</button> or Drag &amp; Drop Files Here</p>
+          <span class="dropzone-hint">Supported: PDF, DOC, DOCX, JPG, PNG · Max 20MB per file</span>
+        </div>
+        <ul class="file-list" id="taskFileList"></ul>
+      </div>
+      <p class="form-error" id="addTaskError" hidden></p>
+      <div class="modal-foot">
+        <button type="button" class="btn-secondary" id="addTaskCancel">Cancel</button>
+        <button type="submit" class="btn-primary">Save Task</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="staffModal" hidden role="dialog" aria-modal="true" aria-labelledby="staffTitle">
+  <div class="modal-card modal-card-sm">
+    <header class="modal-head">
+      <h3 id="staffTitle">Select staff</h3>
+      <button class="icon-btn" id="staffClose" type="button" aria-label="Close">
+        <i class="fa fa-xmark"></i>
+      </button>
+    </header>
+    <ul class="staff-list" id="staffList"></ul>
+  </div>
+</div>

@@ -1,0 +1,319 @@
+
+<div class="encounter-modal" role="dialog" aria-modal="true" aria-label="Encounter">
+
+  <!-- =========================
+       TOP BAR — Title + Close
+  ========================== -->
+  <header class="enc-topbar">
+    <div class="enc-topbar-left">
+      <h1 class="enc-title" id="encTitle">Encounter</h1>
+    </div>
+    <div class="enc-topbar-right">
+      <button class="enc-btn-icon" id="encCloseBtn" type="button" aria-label="Close encounter">
+        <i class="fa fa-xmark"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================
+       TOP CARD — Patient info + Audio toolbar
+       (unified card, matches reference layout)
+  ========================== -->
+  <div class="enc-top-card">
+
+    <!-- PATIENT INFO BAR -->
+    <div class="enc-patient-bar">
+      <div class="enc-patient-info">
+        <div class="enc-info-row">
+          <span class="enc-patient-name" id="encPatientName">James Lee</span>
+          <span class="enc-info-sep">|</span>
+          <span class="enc-info-text" id="encPatientAgeGender">68Y • Male</span>
+          <span class="enc-info-sep">|</span>
+          <!-- <span class="enc-info-text"><i class="fa fa-calendar"></i> DOB: <span id="encPatientDob">05/12/1956</span></span> -->
+        </div>
+        <div class="enc-info-row">
+          <span class="enc-info-text"><strong>Insurance:</strong> <span id="encPatientInsurance">Medicare</span></span>
+        </div>
+      </div>
+
+      <div class="enc-info-divider"></div>
+
+      <div class="enc-encounter-info">
+        <div class="enc-info-row">
+          <span class="enc-info-label">Encounter</span>
+          <span class="enc-info-sep">|</span>
+          <span class="enc-info-text"><i class="fa fa-calendar"></i> <span id="encEncounterDate">06/16/2025</span></span>
+          <span class="enc-info-sep">|</span>
+          <span class="enc-info-text"><i class="fa fa-clock"></i> <span id="encEncounterTime">09:00 AM</span></span>
+          <span class="enc-info-sep">|</span>
+          <span class="enc-info-text"> <span id="encVisitType">Follow-up</span></span>
+        </div>
+        <div class="enc-info-row">
+          <span class="enc-info-text"><i class="fa fa-user-doctor"></i> <strong>Provider:</strong> <span id="encProvider">Dr. Smith Johnson</span></span>
+          <span class="enc-info-sep">|</span>
+          <span class="enc-info-text"><i class="fa fa-location-dot"></i> <strong>Location:</strong> <span id="encLocation">Main Office</span></span>
+        </div>
+      </div>
+
+      <div class="enc-info-divider"></div>
+
+<!-- AUDIO TOOLBAR -->
+      <button class="enc-play-btn" id="encPlayBtn" type="button" aria-label="Play">
+        <i class="fa fa-play"></i>
+      </button>
+
+      <!-- Multi-snippet selector (only shown when there are multiple snippets) -->
+      <div class="enc-snippet-select-wrap" id="encSnippetSelectWrap" hidden>
+        <button class="enc-snippet-select-btn" id="encSnippetSelectBtn" type="button">
+          <i class="fa fa-list-ul"></i>
+          <span id="encSnippetSelectLabel">All snippets</span>
+          <i class="fa fa-chevron-down"></i>
+        </button>
+        <div class="enc-snippet-dropdown" id="encSnippetDropdown" hidden>
+          <div class="enc-snippet-dropdown-head">
+            <span>Select snippets to play</span>
+            <button class="enc-snippet-all" id="encSnippetSelectAll" type="button">Select all</button>
+          </div>
+          <div class="enc-snippet-dropdown-list" id="encSnippetDropdownList"></div>
+        </div>
+      </div>
+
+      <span class="enc-audio-time" id="encAudioTime">2:18 / 6:00</span>
+
+      <div class="enc-waveform-wrap">
+        <div class="enc-waveform" id="encWaveform"></div>
+        <div class="enc-waveform-progress" id="encWaveformProgress"></div>
+      </div>
+
+      <div class="enc-audio-vol">
+        <i class="fa fa-volume-high enc-vol-icon"></i>
+        <div class="enc-vol-slider">
+          <input type="range" min="0" max="100" value="60" id="encVolume" aria-label="Volume">
+          <div class="enc-vol-fill" id="encVolFill" style="width:60%"></div>
+        </div>
+      </div>
+
+      <select class="enc-speed-select" id="encSpeed" aria-label="Playback speed">
+        <option>0.5×</option>
+        <option>0.75×</option>
+        <option selected>1×</option>
+        <option>1.25×</option>
+        <option>1.5×</option>
+        <option>2×</option>
+      </select>
+
+      <div class="enc-audio-end">
+        <button class="enc-tool-btn" type="button" aria-label="Bookmark">
+          <i class="fa fa-bookmark"></i>
+        </button>
+        <button class="enc-tool-btn" type="button" aria-label="Download">
+          <i class="fa fa-download"></i>
+        </button>
+      </div>
+    
+  </div>
+
+    </div>
+
+   
+
+  <!-- =========================
+       MAIN BODY (editor + sidebar)
+  ========================== -->
+  <div class="enc-body">
+
+    <!-- LEFT: Editor area -->
+    <div class="enc-main">
+     <div class="enc-editor-card">
+
+      <!-- Top toolbar: Type of Visit + Template + Dictate/Full/Reset -->
+      <div class="enc-template-bar">
+        <div class="enc-tb-group">
+          <label class="enc-tb-label">Type of Visit</label>
+          <select class="enc-tb-select" id="encVisitSelect">
+            <option>New Patient</option>
+            <option>Follow-Up</option>
+            <option>Consultation</option>
+            <option>Telehealth</option>
+          </select>
+        </div>
+        <div class="enc-tb-group enc-tb-grow">
+          <label class="enc-tb-label">Template</label>
+          <select class="enc-tb-select" id="encTemplateSelect">
+            <option value="nwp-gi">NWP - New Patient GI Consultation Note Sample</option>
+            <option value="soap">SOAP Note</option>
+            <option value="cardiology">Cardiology Consult</option>
+            <option value="general">General Medicine</option>
+          </select>
+        </div>
+        <button class="enc-tb-btn enc-tb-purple" id="encDictateBtn" type="button">
+          <i class="fa fa-microphone"></i> Dictate
+        </button>
+        <button class="enc-tb-btn enc-tb-purple" id="encFullBtn" type="button">
+          <i class="fa fa-expand"></i> Full
+        </button>
+        <button class="enc-tb-btn enc-tb-purple" id="encResetBtn" type="button">
+          <i class="fa fa-rotate-right"></i> Reset
+        </button>
+        <button class="enc-tb-btn enc-tb-save" id="encSaveDraftBtn" type="button">
+          <i class="fa fa-floppy-disk"></i> Save Draft
+        </button>
+      </div>
+
+      <!-- Rich text toolbar (2 rows) -->
+      <div class="enc-rich-toolbar">
+        <div class="enc-rich-row">
+          <button data-cmd="bold"    type="button" title="Bold"><i class="fa fa-bold"></i></button>
+          <button data-cmd="italic"  type="button" title="Italic"><i class="fa fa-italic"></i></button>
+          <button data-cmd="underline" type="button" title="Underline"><i class="fa fa-underline"></i></button>
+
+          <span class="enc-rich-sep"></span>
+
+          <select data-cmd="fontName" class="enc-rich-select">
+            <option>Default</option>
+            <option style="font-family:Arial">Arial</option>
+            <option style="font-family:'Times New Roman'">Times</option>
+            <option style="font-family:Georgia">Georgia</option>
+            <option style="font-family:'Courier New'">Courier</option>
+          </select>
+
+          <select data-cmd="fontSize" class="enc-rich-select">
+            <option>8pt</option>
+            <option>10pt</option>
+            <option selected>12pt</option>
+            <option>14pt</option>
+            <option>16pt</option>
+            <option>18pt</option>
+            <option>24pt</option>
+          </select>
+
+          <label class="enc-rich-color" title="Font color">
+            <span class="enc-color-swatch" id="encColorSwatch"></span>
+            <input type="color" data-cmd="foreColor" value="#1A2340">
+          </label>
+
+          <select data-cmd="lineHeight" class="enc-rich-select">
+            <option>Line</option>
+            <option>1.0</option>
+            <option>1.15</option>
+            <option>1.5</option>
+            <option>2.0</option>
+          </select>
+
+          <select data-cmd="formatBlock" class="enc-rich-select">
+            <option value="P">Normal Text</option>
+            <option value="H1">Heading 1</option>
+            <option value="H2">Heading 2</option>
+            <option value="H3">Heading 3</option>
+            <option value="BLOCKQUOTE">Quote</option>
+          </select>
+
+          <button data-cmd="justifyLeft"   type="button" title="Align left"><i class="fa fa-align-left"></i></button>
+          <button data-cmd="justifyCenter" type="button" title="Align center"><i class="fa fa-align-center"></i></button>
+          <button data-cmd="justifyRight"  type="button" title="Align right"><i class="fa fa-align-right"></i></button>
+          <button data-cmd="justifyFull"   type="button" title="Justify"><i class="fa fa-align-justify"></i></button>
+
+          <span class="enc-rich-sep"></span>
+
+          <button data-cmd="insertUnorderedList" type="button" title="Bullet list"><i class="fa fa-list-ul"></i></button>
+          <button data-cmd="insertOrderedList"   type="button" title="Numbered list"><i class="fa fa-list-ol"></i></button>
+
+          <span class="enc-rich-sep"></span>
+
+          <button data-cmd="outdent" type="button" title="Decrease indent"><i class="fa fa-outdent"></i></button>
+          <button data-cmd="indent"  type="button" title="Increase indent"><i class="fa fa-indent"></i></button>
+
+          <span class="enc-rich-sep"></span>
+
+          <button data-cmd="insertTable" type="button" title="Insert table"><i class="fa fa-table"></i></button>
+          <button data-cmd="insertSpecial" type="button" title="Special character"><i class="fa fa-icons"></i></button>
+
+          <span class="enc-rich-sep"></span>
+
+          <button data-cmd="undo" type="button" title="Undo"><i class="fa fa-rotate-left"></i></button>
+          <button data-cmd="redo" type="button" title="Redo"><i class="fa fa-rotate-right"></i></button>
+
+        </div>
+
+        
+      </div> 
+
+      <!-- Editor -->
+      <div class="enc-editor" id="encEditor" contenteditable="true" spellcheck="true">
+        <h2>Assessment / Differential Diagnosis</h2>
+        <ol>
+          <li>Primary noninfective gastroenteritis/colitis unspecified, K52.831</li>
+          <li>IBS exacerbation</li>
+          <li>Dietary intolerance</li>
+          <li>Medication or probiotic-related GI effects</li>
+          <li>Less likely early inflammatory bowel flare, given family history of IBD</li>
+        </ol>
+
+        <h2>Plan</h2>
+        <ul>
+          <li><strong>Dietary modifications:</strong><br>Avoid dairy for 2–3 weeks, monitor symptoms, consider a low FODMAP diet trial.</li>
+          <li><strong>Hydration:</strong><br>Increase oral fluids, especially electrolyte-rich solutions.</li>
+          <li><strong>Symptomatic relief:</strong><br>Antiemetic as needed for nausea; consider loperamide for diarrhea if not contraindicated.</li>
+          <li><strong>Follow-up:</strong><br>Return in 1–2 weeks if symptoms persist or worsen; sooner if fever, blood in stool, or severe abdominal pain develops.</li>
+          <li><strong>Referral:</strong><br>GI consult if symptoms do not improve with conservative measures within 3–4 weeks.</li>
+        </ul>
+      </div>
+
+      <!-- Editor bottom bar: Save status + Lock Chart -->
+      <div class="enc-editor-foot">
+        <span class="enc-save-status" id="encSaveStatus">
+        </span>
+        <button class="enc-lock-btn" id="encLockChartBtn" type="button">
+          <i class="fa fa-lock"></i> Lock Chart
+        </button>
+      </div>
+     </div>
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <aside class="enc-sidebar">
+
+      <!-- Action buttons 2x2 grid -->
+      <div class="enc-action-grid">
+        <button class="enc-action-card" data-action="macros" type="button">
+          <span class="enc-action-icon enc-t-green"><i class="fa fa-file-lines"></i></span>
+          <span class="enc-action-label">Macros</span>
+        </button>
+        <button class="enc-action-card" data-action="smart-notes" type="button">
+          <span class="enc-action-icon enc-t-purple"><i class="fa fa-clipboard-list"></i></span>
+          <span class="enc-action-label">Smart Notes</span>
+        </button>
+        <button class="enc-action-card" data-action="scribe" type="button">
+          <span class="enc-action-icon enc-t-blue"><i class="fa fa-user-pen"></i></span>
+          <span class="enc-action-label">Request Scribe</span>
+        </button>
+        <button class="enc-action-card" data-action="billing" type="button">
+          <span class="enc-action-icon enc-t-orange"><i class="fa fa-receipt"></i></span>
+          <span class="enc-action-label">Send to Billing</span>
+        </button>
+        <button class="enc-action-card" data-action="doc" type="button">
+          <span class="enc-action-icon enc-t-red"><i class="fa fa-folder"></i></span>
+          <span class="enc-action-label">Patient Documents</span>
+        </button>
+      </div>
+
+      <!-- Patient Documents -->
+      <!-- <div class="enc-docs-panel">
+        <div class="enc-docs-head">
+          <h3 class="enc-docs-title">Patient Documents</h3>
+          <a href="#" class="enc-view-all">View All <i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="enc-docs-list" id="encDocsList"></div>
+      </div> -->
+
+      <!-- Ana Clinical Intelligence (gradient border) -->
+      <button class="enc-ai-panel" id="encAiToggle" type="button">
+        <span class="enc-ai-icon"><i class="fa fa-wand-magic-sparkles"></i></span>
+        <span class="enc-ai-title">Ana Clinical Intelligence</span>
+        <i class="fa fa-chevron-right enc-ai-chev"></i>
+      </button>
+    </aside>
+  </div>
+  <!-- /enc-body -->
+</div>
+<!-- /encounter-modal -->
