@@ -75,7 +75,7 @@ function renderTickets(data) {
 
   if (tbody) {
     tbody.innerHTML = data.map(t => `
-      <tr onclick="viewTicket('${t.id}')">
+      <tr data-ticket-id="${t.id}" class="ticket-row-clickable">
         <td class="ticket-id">${t.id}</td>
         <td>
           <div class="ticket-subject">${t.subject}</div>
@@ -98,7 +98,7 @@ function renderTickets(data) {
 
   if (cardContainer) {
     cardContainer.innerHTML = data.map(t => `
-      <div class="ticket-card" onclick="viewTicket('${t.id}')">
+      <div class="ticket-card ticket-row-clickable" data-ticket-id="${t.id}">
         <div class="ticket-card-top">
           <div class="ticket-card-id">${t.id}</div>
           <span class="status-pill ${t.status}">${statusLabel(t.status)}</span>
@@ -216,7 +216,40 @@ function resetCalendarFilter(){
 }
 
 function viewTicket(id) {
-  showToast(`<i class="fa fa-eye"></i> Opening ticket ${id}...`, 'success');
+  const ticket = TICKETS.find(t => t.id === id);
+  if (!ticket) {
+    showToast(`<i class="fa fa-circle-exclamation"></i> Ticket ${id} not found`, 'error');
+    return;
+  }
+  openTicketDetailForTicket(ticket);
+}
+
+/* =====================================================
+   TICKET DETAIL OVERLAY
+   Lazy-load ticket-detail.js on first click, then call
+   window.openTicketDetail(ticket).
+===================================================== */
+let _ticketDetailBooting = null;
+
+function openTicketDetailForTicket(ticket) {
+  if (typeof window.openTicketDetail === 'function') {
+    window.openTicketDetail(ticket);
+    return;
+  }
+  if (_ticketDetailBooting) {
+    _ticketDetailBooting.then(() => window.openTicketDetail && window.openTicketDetail(ticket));
+    return;
+  }
+  _ticketDetailBooting = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'ticket-detail/ticket-detail.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  _ticketDetailBooting
+    .then(() => window.openTicketDetail && window.openTicketDetail(ticket))
+    .catch(() => showToast('<i class="fa fa-circle-exclamation"></i> Could not load ticket details', 'error'));
 }
 
 // Initial render
@@ -818,6 +851,18 @@ function initSupportTicketsPage() {
       }
     });
   }
+
+  /* Event delegation: click any ticket row / card to open detail overlay */
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('.ticket-row-clickable');
+    if (!target) return;
+    /* Skip if user clicked an inner interactive control */
+    if (e.target.closest('button, input, select, textarea, a')) return;
+    const ticketId = target.getAttribute('data-ticket-id');
+    if (!ticketId) return;
+    const ticket = TICKETS.find(t => t.id === ticketId);
+    if (ticket) openTicketDetailForTicket(ticket);
+  });
 }
 
 if (document.readyState === 'loading') {
@@ -849,12 +894,14 @@ Object.assign(window, {
   openChat,
   openMobileChat,
   openModal,
+  openTicketDetailForTicket,
   renderConversationList,
   resetCalendarFilter,
   sendMessage,
   setFilter,
   submitTicket,
   switchChatTab,
-  triggerFileUpload
+  triggerFileUpload,
+  viewTicket
 });
 })();
